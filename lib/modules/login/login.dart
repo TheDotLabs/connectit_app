@@ -5,7 +5,6 @@ import 'package:connectit_app/modules/base/base_state.dart';
 import 'package:connectit_app/modules/login/widgets.dart';
 import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/utils/dialog_utils.dart';
-import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -48,8 +47,10 @@ class _LoginScreenState extends BaseState<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: size.width * 0.5,
-              child: Image.asset(Images.DOT_LOGO),
+              child: Text(
+                "Connect IT- demo",
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
             const SizedBox(
               height: 56.0,
