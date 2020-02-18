@@ -32,53 +32,55 @@ class _TalentPageState extends State<TalentPage> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 8,
-                    crossAxisSpacing: 12,
+                    crossAxisSpacing: 8,
                     childAspectRatio: 0.9,
                   ),
                   children: <Widget>[
                     ...snapshot.data.documents.map((e) => User.fromJson(e.data)).map(
                           (e) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(4)),
-                              border: Border.all(
-                                color: Theme.of(context).dividerColor,
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              margin: EdgeInsets.all(0),
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(4)),
+                                side: BorderSide(color: Theme.of(context).dividerColor),
                               ),
-                            ),
-                            clipBehavior: Clip.antiAlias,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Image.network(
-                                    e.avatar,
-                                    fit: BoxFit.fitWidth,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Image.network(
+                                      e.avatar,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 8,
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          e.name,
+                                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        SizedBox(
+                                          height: 2,
+                                        ),
+                                        Text(
+                                          "Description",
+                                          style: Theme.of(context).textTheme.bodyText2,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        e.name,
-                                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      Text(
-                                        "Description",
-                                        style: Theme.of(context).textTheme.bodyText2,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         )

@@ -11,7 +11,7 @@ class StartupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1.2,
+      aspectRatio: 1.24,
       child: Container(
         margin: EdgeInsets.symmetric(
           horizontal: 6,
@@ -31,7 +31,6 @@ class StartupCard extends StatelessWidget {
                   aspectRatio: 1.8,
                   child: CachedNetworkImage(
                     imageUrl: item.avatar ?? Constants.defaultStartupImage,
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -41,7 +40,7 @@ class StartupCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 12,
-                  vertical: 10,
+                  vertical: 8,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,15 +48,16 @@ class StartupCard extends StatelessWidget {
                     Text(
                       item.name ?? "--",
                       style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.05,
                           ),
                     ),
                     SizedBox(
-                      height: 4,
+                      height: 2,
                     ),
                     Text(
                       item.tagline ?? "--",
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.display1.copyWith(fontSize: 13),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

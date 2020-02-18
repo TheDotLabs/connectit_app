@@ -21,12 +21,12 @@ class _StartupPageState extends State<StartupPage> {
         MenuHeader("TRENDING STARTUPS"),
         TrendingStartupList(),
         SizedBox(
-          height: 8,
+          height: 4,
         ),
         MenuHeader("NEW STARTUPS"),
         NewStartupList(),
         SizedBox(
-          height: 8,
+          height: 4,
         ),
         MenuHeader("UPCOMING STARTUPS"),
         UpcomingStartupList(),

@@ -10,7 +10,7 @@ class Constants {
 
   static var isUpcoming = "isUpcoming";
 
-  static double startupListHeight = 210;
+  static double startupListHeight = 200;
 
   Constants._();
 }
