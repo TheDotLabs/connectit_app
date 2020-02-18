@@ -16,6 +16,8 @@ mixin _$Startup {
   String get tagline;
   String get description;
   String get avatar;
+  @JsonKey(defaultValue: false)
+  bool get isVerified;
   bool get isTrending;
   bool get isUpcoming;
   bool get isNew;
@@ -25,6 +27,7 @@ mixin _$Startup {
       String tagline,
       String description,
       String avatar,
+      @JsonKey(defaultValue: false) bool isVerified,
       bool isTrending,
       bool isUpcoming,
       bool isNew});
@@ -39,6 +42,7 @@ class _$_Startup implements _Startup {
       this.tagline,
       this.description,
       this.avatar,
+      @JsonKey(defaultValue: false) this.isVerified,
       this.isTrending,
       this.isUpcoming,
       this.isNew});
@@ -55,6 +59,9 @@ class _$_Startup implements _Startup {
   @override
   final String avatar;
   @override
+  @JsonKey(defaultValue: false)
+  final bool isVerified;
+  @override
   final bool isTrending;
   @override
   final bool isUpcoming;
@@ -63,7 +70,7 @@ class _$_Startup implements _Startup {
 
   @override
   String toString() {
-    return 'Startup(name: $name, tagline: $tagline, description: $description, avatar: $avatar, isTrending: $isTrending, isUpcoming: $isUpcoming, isNew: $isNew)';
+    return 'Startup(name: $name, tagline: $tagline, description: $description, avatar: $avatar, isVerified: $isVerified, isTrending: $isTrending, isUpcoming: $isUpcoming, isNew: $isNew)';
   }
 
   @override
@@ -80,6 +87,9 @@ class _$_Startup implements _Startup {
                     .equals(other.description, description)) &&
             (identical(other.avatar, avatar) ||
                 const DeepCollectionEquality().equals(other.avatar, avatar)) &&
+            (identical(other.isVerified, isVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.isVerified, isVerified)) &&
             (identical(other.isTrending, isTrending) ||
                 const DeepCollectionEquality()
                     .equals(other.isTrending, isTrending)) &&
@@ -97,6 +107,7 @@ class _$_Startup implements _Startup {
       tagline.hashCode ^
       description.hashCode ^
       avatar.hashCode ^
+      isVerified.hashCode ^
       isTrending.hashCode ^
       isUpcoming.hashCode ^
       isNew.hashCode;
@@ -107,6 +118,7 @@ class _$_Startup implements _Startup {
     Object tagline = freezed,
     Object description = freezed,
     Object avatar = freezed,
+    Object isVerified = freezed,
     Object isTrending = freezed,
     Object isUpcoming = freezed,
     Object isNew = freezed,
@@ -117,6 +129,7 @@ class _$_Startup implements _Startup {
       description:
           description == freezed ? this.description : description as String,
       avatar: avatar == freezed ? this.avatar : avatar as String,
+      isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
       isTrending: isTrending == freezed ? this.isTrending : isTrending as bool,
       isUpcoming: isUpcoming == freezed ? this.isUpcoming : isUpcoming as bool,
       isNew: isNew == freezed ? this.isNew : isNew as bool,
@@ -135,6 +148,7 @@ abstract class _Startup implements Startup {
       String tagline,
       String description,
       String avatar,
+      @JsonKey(defaultValue: false) bool isVerified,
       bool isTrending,
       bool isUpcoming,
       bool isNew}) = _$_Startup;
@@ -150,6 +164,9 @@ abstract class _Startup implements Startup {
   @override
   String get avatar;
   @override
+  @JsonKey(defaultValue: false)
+  bool get isVerified;
+  @override
   bool get isTrending;
   @override
   bool get isUpcoming;
@@ -162,6 +179,7 @@ abstract class _Startup implements Startup {
       String tagline,
       String description,
       String avatar,
+      @JsonKey(defaultValue: false) bool isVerified,
       bool isTrending,
       bool isUpcoming,
       bool isNew});

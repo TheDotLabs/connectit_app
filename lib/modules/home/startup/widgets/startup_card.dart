@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectit_app/data/model/startup.dart';
 import 'package:connectit_app/utils/constants.dart';
+import 'package:connectit_app/widgets/verified_badge.dart';
 import 'package:flutter/material.dart';
 
 class StartupCard extends StatelessWidget {
@@ -45,12 +46,21 @@ class StartupCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Text(
-                      item.name ?? "--",
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.05,
-                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          item.name ?? "--",
+                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.05,
+                              ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        if (item.isVerified) VerifiedBadge(),
+                      ],
                     ),
                     SizedBox(
                       height: 2,
