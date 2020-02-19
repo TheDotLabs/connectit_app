@@ -6,7 +6,7 @@ part of 'startup.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Startup _$_$_StartupFromJson(Map<String, dynamic> json) {
+_$_Startup _$_$_StartupFromJson(Map json) {
   return $checkedNew(r'_$_Startup', json, () {
     final val = _$_Startup(
       name: $checkedConvert(json, 'name', (v) => v as String),
@@ -18,6 +18,10 @@ _$_Startup _$_$_StartupFromJson(Map<String, dynamic> json) {
       isTrending: $checkedConvert(json, 'isTrending', (v) => v as bool),
       isUpcoming: $checkedConvert(json, 'isUpcoming', (v) => v as bool),
       isNew: $checkedConvert(json, 'isNew', (v) => v as bool),
+      founders: $checkedConvert(json, 'founders', (v) => v as List),
+      facebook: $checkedConvert(json, 'facebook', (v) => v as String),
+      linkedIn: $checkedConvert(json, 'linkedIn', (v) => v as String),
+      website: $checkedConvert(json, 'website', (v) => v as String),
     );
     return val;
   });
@@ -33,4 +37,8 @@ Map<String, dynamic> _$_$_StartupToJson(_$_Startup instance) =>
       'isTrending': instance.isTrending,
       'isUpcoming': instance.isUpcoming,
       'isNew': instance.isNew,
+      'founders': instance.founders,
+      'facebook': instance.facebook,
+      'linkedIn': instance.linkedIn,
+      'website': instance.website,
     };

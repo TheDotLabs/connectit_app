@@ -14,8 +14,6 @@ class ThemeLight {
     bottomAppBarTheme: BottomAppBarTheme(
       color: Colors.white,
     ),
-    backgroundColor: Colors.white,
-    bottomAppBarColor: Colors.white,
   );
 
   static final MaterialColor _primarySwatch = hexColor2MaterialColor(0xFF31B2DF);
@@ -28,7 +26,6 @@ class ThemeLight {
   static final AppBarTheme _appBarTheme = AppBarTheme(
     color: Colors.white,
     elevation: 1,
-    brightness: Brightness.light,
     textTheme: TextTheme(
       title: GoogleFonts.nunito(
         color: Colors.black,

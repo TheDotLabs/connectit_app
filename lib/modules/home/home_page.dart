@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        brightness: Brightness.light,
         title: Text("Connect IT- Demo"),
       ),
       body: _children[_currentIndex],

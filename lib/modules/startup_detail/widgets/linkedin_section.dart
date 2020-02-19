@@ -2,10 +2,10 @@ import 'package:connectit_app/modules/startup_detail/utils/constants.dart';
 import 'package:connectit_app/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-class Facebook_Section extends StatelessWidget {
-  String facebook;
+class LinkedInSection extends StatelessWidget {
+  String url;
 
-  Facebook_Section(this.facebook);
+  LinkedInSection(this.url);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class Facebook_Section extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header("FACEBOOK"),
-          Text(facebook),
+          Header("LINKEDIN"),
+          Text(url),
           SizedBox(
             height: Constants.sectionVPadding,
           ),

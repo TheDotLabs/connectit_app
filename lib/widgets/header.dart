@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-class MenuHeader extends StatelessWidget {
+class Header extends StatelessWidget {
   final String title;
 
-  MenuHeader(this.title);
+  Header(this.title);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 12,
-        horizontal: 16,
-      ),
+      margin: EdgeInsets.only(bottom: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
             title,
@@ -21,13 +17,6 @@ class MenuHeader extends StatelessWidget {
                   fontSize: 13,
                 ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-            child: Text(
-              "View All",
-              style: TextStyle(color: Colors.redAccent, fontSize: 12),
-            ),
-          )
         ],
       ),
     );

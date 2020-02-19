@@ -29,9 +29,9 @@ class Injector {
       prefsHelper,
     );
 
-    injector.registerLazySingleton<Firestore>(() => Firestore.instance);
+    injector.registerSingleton<Firestore>( Firestore.instance);
     // UserRepository
-    injector.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
+    injector.registerSingleton<UserRepository>(UserRepositoryImpl(
           firestore: injector(),
         ));
     // GoogleLoginRepository

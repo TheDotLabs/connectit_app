@@ -14,6 +14,10 @@ abstract class Startup with _$Startup {
     bool isTrending,
     bool isUpcoming,
     bool isNew,
+    List founders,
+    String facebook,
+    String linkedIn,
+    String website,
   }) = _Startup;
 
   factory Startup.fromJson(Map<String, dynamic> json) => _$StartupFromJson(json);
