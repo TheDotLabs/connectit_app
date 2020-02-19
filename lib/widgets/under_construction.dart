@@ -17,7 +17,7 @@ class UnderConstruction extends StatelessWidget {
             height: 32,
           ),
           Text(
-            "Hang on! We'll be LIVE soon...",
+            "Hang on! Its still under construction...",
             style: Theme.of(context).textTheme.bodyText2,
           ),
         ],

@@ -14,6 +14,7 @@ abstract class User with _$User {
     @JsonKey(includeIfNull: false) String tagline,
     @JsonKey(includeIfNull: false) List<Education> education,
     @JsonKey(includeIfNull: false) List startups,
+    @JsonKey(includeIfNull: false,defaultValue: false) bool isVerified,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

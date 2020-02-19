@@ -25,6 +25,8 @@ mixin _$User {
   List<Education> get education;
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  bool get isVerified;
 
   User copyWith(
       {String id,
@@ -34,7 +36,8 @@ mixin _$User {
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
       @JsonKey(includeIfNull: false) List<Education> education,
-      @JsonKey(includeIfNull: false) List<dynamic> startups});
+      @JsonKey(includeIfNull: false) List<dynamic> startups,
+      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 
   Map<String, dynamic> toJson();
 }
@@ -49,7 +52,8 @@ class _$_User implements _User {
       this.provider,
       @JsonKey(includeIfNull: false) this.tagline,
       @JsonKey(includeIfNull: false) this.education,
-      @JsonKey(includeIfNull: false) this.startups});
+      @JsonKey(includeIfNull: false) this.startups,
+      @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -75,10 +79,13 @@ class _$_User implements _User {
   @override
   @JsonKey(includeIfNull: false)
   final List<dynamic> startups;
+  @override
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  final bool isVerified;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, education: $education, startups: $startups)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, education: $education, startups: $startups, isVerified: $isVerified)';
   }
 
   @override
@@ -104,7 +111,10 @@ class _$_User implements _User {
                     .equals(other.education, education)) &&
             (identical(other.startups, startups) ||
                 const DeepCollectionEquality()
-                    .equals(other.startups, startups)));
+                    .equals(other.startups, startups)) &&
+            (identical(other.isVerified, isVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.isVerified, isVerified)));
   }
 
   @override
@@ -117,7 +127,8 @@ class _$_User implements _User {
       provider.hashCode ^
       tagline.hashCode ^
       education.hashCode ^
-      startups.hashCode;
+      startups.hashCode ^
+      isVerified.hashCode;
 
   @override
   _$_User copyWith({
@@ -129,6 +140,7 @@ class _$_User implements _User {
     Object tagline = freezed,
     Object education = freezed,
     Object startups = freezed,
+    Object isVerified = freezed,
   }) {
     return _$_User(
       id: id == freezed ? this.id : id as String,
@@ -140,6 +152,7 @@ class _$_User implements _User {
       education:
           education == freezed ? this.education : education as List<Education>,
       startups: startups == freezed ? this.startups : startups as List<dynamic>,
+      isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
     );
   }
 
@@ -152,13 +165,20 @@ class _$_User implements _User {
 abstract class _User implements User {
   factory _User(
       {String id,
-      @JsonKey(includeIfNull: false) String name,
+      @JsonKey(includeIfNull: false)
+          String name,
       String email,
-      @JsonKey(includeIfNull: false) String avatar,
+      @JsonKey(includeIfNull: false)
+          String avatar,
       String provider,
-      @JsonKey(includeIfNull: false) String tagline,
-      @JsonKey(includeIfNull: false) List<Education> education,
-      @JsonKey(includeIfNull: false) List<dynamic> startups}) = _$_User;
+      @JsonKey(includeIfNull: false)
+          String tagline,
+      @JsonKey(includeIfNull: false)
+          List<Education> education,
+      @JsonKey(includeIfNull: false)
+          List<dynamic> startups,
+      @JsonKey(includeIfNull: false, defaultValue: false)
+          bool isVerified}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -183,6 +203,9 @@ abstract class _User implements User {
   @override
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
+  @override
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  bool get isVerified;
 
   @override
   _User copyWith(
@@ -193,7 +216,8 @@ abstract class _User implements User {
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
       @JsonKey(includeIfNull: false) List<Education> education,
-      @JsonKey(includeIfNull: false) List<dynamic> startups});
+      @JsonKey(includeIfNull: false) List<dynamic> startups,
+      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 }
 
 Education _$EducationFromJson(Map<String, dynamic> json) {

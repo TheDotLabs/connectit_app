@@ -22,15 +22,23 @@ class EducationSection extends StatelessWidget {
               children: <Widget>[
                 Text(
                   education.college ?? "--",
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 2,
                 ),
                 Text(
                   "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.headline4.copyWith(
+                        fontSize: 14,
+                      ),
                 ),
                 if (checkIfNotEmpty(education.description))
                   Container(
-                    margin: EdgeInsets.only(top: 8),
+                    margin: EdgeInsets.only(top: 10),
                     child: Text(
                       education.description,
                       style: Theme.of(context).textTheme.bodyText2,

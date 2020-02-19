@@ -7,6 +7,7 @@ import 'package:connectit_app/modules/startup_detail/widgets/linkedin_section.da
 import 'package:connectit_app/modules/startup_detail/widgets/website_section.dart';
 import 'package:connectit_app/utils/constants.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
+import 'package:connectit_app/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
 
 class StartupDetailPage extends StatefulWidget {
@@ -35,7 +36,10 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
           children: <Widget>[
             CachedNetworkImage(
               imageUrl: widget.item.avatar ?? Constants.defaultStartupImage,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
             ),
             Divider(
               height: 1,
@@ -53,30 +57,42 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
                   Text(
                     widget.item.name,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(letterSpacing: 1.05),
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 4,
                   ),
                   Text(
                     widget.item.tagline,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 14),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(fontSize: 14),
                   ),
                 ],
               ),
             ),
-            Divider(
-              height: 1,
-            ),
+            MyDivider(),
             SizedBox(
               height: 8,
             ),
             DescriptionSection(widget.item.description),
+            MyDivider(),
             FoundersSection(widget.item.founders),
-            if (checkIfNotEmpty(widget.item.website)) WebsiteSection(widget.item.website),
-            if (checkIfNotEmpty(widget.item.facebook)) Facebook_Section(widget.item.facebook),
-            if (checkIfNotEmpty(widget.item.linkedIn)) LinkedInSection(widget.item.linkedIn),
+            MyDivider(),
+            if (checkIfNotEmpty(widget.item.website))
+              WebsiteSection(widget.item.website),
+            if (checkIfNotEmpty(widget.item.website)) MyDivider(),
+            if (checkIfNotEmpty(widget.item.facebook))
+              Facebook_Section(widget.item.facebook),
+            if (checkIfNotEmpty(widget.item.facebook)) MyDivider(),
+            if (checkIfNotEmpty(widget.item.linkedIn))
+              LinkedInSection(widget.item.linkedIn),
+            if (checkIfNotEmpty(widget.item.linkedIn)) MyDivider(),
           ],
         ),
       ),

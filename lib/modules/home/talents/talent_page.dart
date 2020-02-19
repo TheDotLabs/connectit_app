@@ -3,6 +3,7 @@ import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/modules/home/widgets/menu_header.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:connectit_app/widgets/stream_loading.dart';
+import 'package:connectit_app/widgets/under_construction.dart';
 import 'package:flutter/material.dart';
 
 class TalentPage extends StatefulWidget {
@@ -36,15 +37,19 @@ class _TalentPageState extends State<TalentPage> {
                     childAspectRatio: 0.9,
                   ),
                   children: <Widget>[
-                    ...snapshot.data.documents.map((e) => User.fromJson(e.data)).map(
+                    ...snapshot.data.documents
+                        .map((e) => User.fromJson(e.data))
+                        .map(
                           (e) => Container(
                             child: Card(
                               clipBehavior: Clip.antiAlias,
                               margin: EdgeInsets.all(0),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
-                                side: BorderSide(color: Theme.of(context).dividerColor),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                                side: BorderSide(
+                                    color: Theme.of(context).dividerColor),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,11 +66,15 @@ class _TalentPageState extends State<TalentPage> {
                                       vertical: 8,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                           e.name,
-                                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1
+                                              .copyWith(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
@@ -74,7 +83,9 @@ class _TalentPageState extends State<TalentPage> {
                                         ),
                                         Text(
                                           "Description",
-                                          style: Theme.of(context).textTheme.bodyText2,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
                                         ),
                                       ],
                                     ),
@@ -87,7 +98,11 @@ class _TalentPageState extends State<TalentPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 32,
+                ),
+                UnderConstruction(),
+                SizedBox(
+                  height: 32,
                 ),
               ],
             );
