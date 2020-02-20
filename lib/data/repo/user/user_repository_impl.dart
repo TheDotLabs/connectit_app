@@ -30,9 +30,13 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User>> register(User user) async {
     try {
-      await firestore.collection('users').document(user.id).updateData(
-            user.toJson(),
-          );
+      final userDocument =
+          await firestore.collection('users').document(user.id).get();
+      if (userDocument != null && userDocument.exists) {
+        //Do nothing
+      } else {
+        await userDocument.reference.setData(user.toJson());
+      }
       prefsHelper.isLogin = true;
       prefsHelper.userData = json.encode(user);
       init();
