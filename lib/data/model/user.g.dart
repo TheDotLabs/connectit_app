@@ -25,6 +25,16 @@ _$_User _$_$_UserFromJson(Map json) {
                       (k, e) => MapEntry(k as String, e),
                     )))
               ?.toList()),
+      works: $checkedConvert(
+          json,
+          'works',
+          (v) => (v as List)
+              ?.map((e) => e == null
+                  ? null
+                  : Work.fromJson((e as Map)?.map(
+                      (k, e) => MapEntry(k as String, e),
+                    )))
+              ?.toList()),
       startups: $checkedConvert(json, 'startups', (v) => v as List),
       isVerified:
           $checkedConvert(json, 'isVerified', (v) => v as bool) ?? false,
@@ -51,6 +61,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) {
   writeNotNull('tagline', instance.tagline);
   writeNotNull(
       'educations', instance.educations?.map((e) => e?.toJson())?.toList());
+  writeNotNull('works', instance.works?.map((e) => e?.toJson())?.toList());
   writeNotNull('startups', instance.startups);
   writeNotNull('isVerified', instance.isVerified);
   return val;
@@ -76,4 +87,28 @@ Map<String, dynamic> _$_$_EducationToJson(_$_Education instance) =>
       'description': instance.description,
       'startYear': instance.startYear,
       'endYear': instance.endYear,
+    };
+
+_$_Work _$_$_WorkFromJson(Map json) {
+  return $checkedNew(r'_$_Work', json, () {
+    final val = _$_Work(
+      company: $checkedConvert(json, 'company', (v) => v as String),
+      role: $checkedConvert(json, 'role', (v) => v as String),
+      description: $checkedConvert(json, 'description', (v) => v as String),
+      startYear: $checkedConvert(json, 'startYear', (v) => v as int),
+      endYear: $checkedConvert(json, 'endYear', (v) => v as int),
+      currentlyWorkHere:
+          $checkedConvert(json, 'currentlyWorkHere', (v) => v as bool) ?? false,
+    );
+    return val;
+  });
+}
+
+Map<String, dynamic> _$_$_WorkToJson(_$_Work instance) => <String, dynamic>{
+      'company': instance.company,
+      'role': instance.role,
+      'description': instance.description,
+      'startYear': instance.startYear,
+      'endYear': instance.endYear,
+      'currentlyWorkHere': instance.currentlyWorkHere,
     };

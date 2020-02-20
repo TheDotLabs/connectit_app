@@ -22,7 +22,7 @@ class FoundersSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header("FOUNDERS (${list?.length ?? 0})"),
+          Header("TEAM MEMBERS (${list?.length ?? 0})"),
           if (list != null)
             for (var i = 0; i < list.length; i++)
               FutureBuilder<DocumentSnapshot>(

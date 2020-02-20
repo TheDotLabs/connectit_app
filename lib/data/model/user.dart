@@ -13,8 +13,9 @@ abstract class User with _$User {
     String provider,
     @JsonKey(includeIfNull: false) String tagline,
     @JsonKey(includeIfNull: false) List<Education> educations,
+    @JsonKey(includeIfNull: false) List<Work> works,
     @JsonKey(includeIfNull: false) List startups,
-    @JsonKey(includeIfNull: false,defaultValue: false) bool isVerified,
+    @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -32,4 +33,18 @@ abstract class Education with _$Education {
 
   factory Education.fromJson(Map<String, dynamic> json) =>
       _$EducationFromJson(json);
+}
+
+@freezed
+abstract class Work with _$Work {
+  factory Work({
+    String company,
+    String role,
+    String description,
+    int startYear,
+    int endYear,
+    @JsonKey(defaultValue: false) bool currentlyWorkHere,
+  }) = _Work;
+
+  factory Work.fromJson(Map<String, dynamic> json) => _$WorkFromJson(json);
 }

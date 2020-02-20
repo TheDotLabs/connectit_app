@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'bloc.dart';
 import 'widgets/logout_button.dart';
+import 'widgets/work_section.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -39,6 +40,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 MyDivider(),
                 EducationSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),
+                WorkSection(
                   user,
                   edit: true,
                 ),

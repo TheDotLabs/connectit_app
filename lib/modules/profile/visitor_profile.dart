@@ -52,6 +52,8 @@ class _VisitorProfilePageState extends State<VisitorProfilePage> {
                   if (checkIfListIsNotEmpty(user.educations))
                     EducationSection(user),
                   if (checkIfListIsNotEmpty(user.educations)) MyDivider(),
+                  if (checkIfListIsNotEmpty(user.works)) EducationSection(user),
+                  if (checkIfListIsNotEmpty(user.works)) MyDivider(),
                   if (checkIfListIsNotEmpty(user.startups))
                     StartupSection(user.startups),
                   if (checkIfListIsNotEmpty(user.startups)) MyDivider(),

@@ -24,6 +24,8 @@ mixin _$User {
   @JsonKey(includeIfNull: false)
   List<Education> get educations;
   @JsonKey(includeIfNull: false)
+  List<Work> get works;
+  @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
   @JsonKey(includeIfNull: false, defaultValue: false)
   bool get isVerified;
@@ -36,6 +38,7 @@ mixin _$User {
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
       @JsonKey(includeIfNull: false) List<Education> educations,
+      @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 
@@ -52,6 +55,7 @@ class _$_User implements _User {
       this.provider,
       @JsonKey(includeIfNull: false) this.tagline,
       @JsonKey(includeIfNull: false) this.educations,
+      @JsonKey(includeIfNull: false) this.works,
       @JsonKey(includeIfNull: false) this.startups,
       @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified});
 
@@ -78,6 +82,9 @@ class _$_User implements _User {
   final List<Education> educations;
   @override
   @JsonKey(includeIfNull: false)
+  final List<Work> works;
+  @override
+  @JsonKey(includeIfNull: false)
   final List<dynamic> startups;
   @override
   @JsonKey(includeIfNull: false, defaultValue: false)
@@ -85,7 +92,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, startups: $startups, isVerified: $isVerified)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, works: $works, startups: $startups, isVerified: $isVerified)';
   }
 
   @override
@@ -109,6 +116,8 @@ class _$_User implements _User {
             (identical(other.educations, educations) ||
                 const DeepCollectionEquality()
                     .equals(other.educations, educations)) &&
+            (identical(other.works, works) ||
+                const DeepCollectionEquality().equals(other.works, works)) &&
             (identical(other.startups, startups) ||
                 const DeepCollectionEquality()
                     .equals(other.startups, startups)) &&
@@ -127,6 +136,7 @@ class _$_User implements _User {
       provider.hashCode ^
       tagline.hashCode ^
       educations.hashCode ^
+      works.hashCode ^
       startups.hashCode ^
       isVerified.hashCode;
 
@@ -139,6 +149,7 @@ class _$_User implements _User {
     Object provider = freezed,
     Object tagline = freezed,
     Object educations = freezed,
+    Object works = freezed,
     Object startups = freezed,
     Object isVerified = freezed,
   }) {
@@ -152,6 +163,7 @@ class _$_User implements _User {
       educations: educations == freezed
           ? this.educations
           : educations as List<Education>,
+      works: works == freezed ? this.works : works as List<Work>,
       startups: startups == freezed ? this.startups : startups as List<dynamic>,
       isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
     );
@@ -176,6 +188,8 @@ abstract class _User implements User {
           String tagline,
       @JsonKey(includeIfNull: false)
           List<Education> educations,
+      @JsonKey(includeIfNull: false)
+          List<Work> works,
       @JsonKey(includeIfNull: false)
           List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false)
@@ -203,6 +217,9 @@ abstract class _User implements User {
   List<Education> get educations;
   @override
   @JsonKey(includeIfNull: false)
+  List<Work> get works;
+  @override
+  @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
   @override
   @JsonKey(includeIfNull: false, defaultValue: false)
@@ -217,6 +234,7 @@ abstract class _User implements User {
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
       @JsonKey(includeIfNull: false) List<Education> educations,
+      @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 }
@@ -351,4 +369,156 @@ abstract class _Education implements Education {
       String description,
       int startYear,
       int endYear});
+}
+
+Work _$WorkFromJson(Map<String, dynamic> json) {
+  return _Work.fromJson(json);
+}
+
+mixin _$Work {
+  String get company;
+  String get role;
+  String get description;
+  int get startYear;
+  int get endYear;
+  @JsonKey(defaultValue: false)
+  bool get currentlyWorkHere;
+
+  Work copyWith(
+      {String company,
+      String role,
+      String description,
+      int startYear,
+      int endYear,
+      @JsonKey(defaultValue: false) bool currentlyWorkHere});
+
+  Map<String, dynamic> toJson();
+}
+
+@JsonSerializable()
+class _$_Work implements _Work {
+  _$_Work(
+      {this.company,
+      this.role,
+      this.description,
+      this.startYear,
+      this.endYear,
+      @JsonKey(defaultValue: false) this.currentlyWorkHere});
+
+  factory _$_Work.fromJson(Map<String, dynamic> json) =>
+      _$_$_WorkFromJson(json);
+
+  @override
+  final String company;
+  @override
+  final String role;
+  @override
+  final String description;
+  @override
+  final int startYear;
+  @override
+  final int endYear;
+  @override
+  @JsonKey(defaultValue: false)
+  final bool currentlyWorkHere;
+
+  @override
+  String toString() {
+    return 'Work(company: $company, role: $role, description: $description, startYear: $startYear, endYear: $endYear, currentlyWorkHere: $currentlyWorkHere)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Work &&
+            (identical(other.company, company) ||
+                const DeepCollectionEquality()
+                    .equals(other.company, company)) &&
+            (identical(other.role, role) ||
+                const DeepCollectionEquality().equals(other.role, role)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.startYear, startYear) ||
+                const DeepCollectionEquality()
+                    .equals(other.startYear, startYear)) &&
+            (identical(other.endYear, endYear) ||
+                const DeepCollectionEquality()
+                    .equals(other.endYear, endYear)) &&
+            (identical(other.currentlyWorkHere, currentlyWorkHere) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentlyWorkHere, currentlyWorkHere)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      company.hashCode ^
+      role.hashCode ^
+      description.hashCode ^
+      startYear.hashCode ^
+      endYear.hashCode ^
+      currentlyWorkHere.hashCode;
+
+  @override
+  _$_Work copyWith({
+    Object company = freezed,
+    Object role = freezed,
+    Object description = freezed,
+    Object startYear = freezed,
+    Object endYear = freezed,
+    Object currentlyWorkHere = freezed,
+  }) {
+    return _$_Work(
+      company: company == freezed ? this.company : company as String,
+      role: role == freezed ? this.role : role as String,
+      description:
+          description == freezed ? this.description : description as String,
+      startYear: startYear == freezed ? this.startYear : startYear as int,
+      endYear: endYear == freezed ? this.endYear : endYear as int,
+      currentlyWorkHere: currentlyWorkHere == freezed
+          ? this.currentlyWorkHere
+          : currentlyWorkHere as bool,
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_WorkToJson(this);
+  }
+}
+
+abstract class _Work implements Work {
+  factory _Work(
+      {String company,
+      String role,
+      String description,
+      int startYear,
+      int endYear,
+      @JsonKey(defaultValue: false) bool currentlyWorkHere}) = _$_Work;
+
+  factory _Work.fromJson(Map<String, dynamic> json) = _$_Work.fromJson;
+
+  @override
+  String get company;
+  @override
+  String get role;
+  @override
+  String get description;
+  @override
+  int get startYear;
+  @override
+  int get endYear;
+  @override
+  @JsonKey(defaultValue: false)
+  bool get currentlyWorkHere;
+
+  @override
+  _Work copyWith(
+      {String company,
+      String role,
+      String description,
+      int startYear,
+      int endYear,
+      @JsonKey(defaultValue: false) bool currentlyWorkHere});
 }
