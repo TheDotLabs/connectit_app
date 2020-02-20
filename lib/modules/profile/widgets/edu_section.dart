@@ -32,54 +32,81 @@ class EducationSection extends StatelessWidget {
           Header("EDUCATION"),
           if (checkIfListIsNotEmpty(user.educations))
             for (final education in user.educations)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          education.college ?? "--",
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2
-                              .copyWith(fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        if (education.startYear != null ||
-                            education.endYear != null)
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: 12,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
                           Text(
-                            "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontSize: 14,
-                                    ),
+                            education.college ?? "--",
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2
+                                .copyWith(fontSize: 16),
                           ),
-                        if (checkIfNotEmpty(education.description))
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(
-                              education.description,
-                              style: Theme.of(context).textTheme.bodyText2,
+                          SizedBox(
+                            height: 2,
+                          ),
+                          if (education.startYear != null ||
+                              education.endYear != null)
+                            Text(
+                              "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          if (checkIfNotEmpty(education.description))
+                            Container(
+                              margin: EdgeInsets.only(top: 4),
+                              child: Text(
+                                education.description,
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    if (edit)
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 32,
+                            child: IconButton(
+                              icon: Icon(
+                                LineAwesomeIcons.edit,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                _onEdit(context, education);
+                              },
                             ),
                           ),
-                      ],
-                    ),
-                  ),
-                  if (edit)
-                    IconButton(
-                      icon: Icon(
-                        LineAwesomeIcons.edit,
-                        size: 20,
-                      ),
-                      onPressed: () {
-                        _onEdit(context, education);
-                      },
-                    )
-                ],
+                          SizedBox(
+                            height: 32,
+                            child: IconButton(
+                              icon: Icon(
+                                LineAwesomeIcons.minus_circle,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                _onRemove(context, education);
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                  ],
+                ),
               )
 
           // Text(tagline),
@@ -101,9 +128,6 @@ class EducationSection extends StatelessWidget {
                 ),
               ],
             ),
-          SizedBox(
-            height: 8,
-          ),
           Container(
             height: 40.0,
             child: RaisedButton(
@@ -139,6 +163,19 @@ class EducationSection extends StatelessWidget {
       ),
     );
   }
+
+  void _onRemove(BuildContext context, Education education) {
+    try {
+      injector<Firestore>().collection('users').document(user.id).updateData({
+        "educations": FieldValue.arrayRemove([education.toJson()])
+      });
+
+      ToastUtils.show("Education updated!");
+    } catch (e, s) {
+      logger.e(e, s);
+      ToastUtils.showSomethingWrong();
+    }
+  }
 }
 
 class _MyEditingDialog extends StatefulWidget {
@@ -153,18 +190,29 @@ class _MyEditingDialog extends StatefulWidget {
 class _MyEditingDialogState extends State<_MyEditingDialog> {
   TextEditingController _collegeController;
   TextEditingController _descController;
+  TextEditingController _degreeController;
 
   bool _isLoading = false;
 
+  int _startYear;
+  int _endYear;
+
+  int currentYear = DateTime.now().year;
   @override
   void initState() {
     super.initState();
+    _startYear = widget.education.startYear;
+    _endYear = widget.education.endYear;
+
     _collegeController = TextEditingController.fromValue(
       TextEditingValue(text: widget.education.college ?? ""),
     );
 
     _descController = TextEditingController.fromValue(
       TextEditingValue(text: widget.education.description ?? ""),
+    );
+    _degreeController = TextEditingController.fromValue(
+      TextEditingValue(text: widget.education.degree ?? ""),
     );
   }
 
@@ -187,9 +235,68 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           TextField(
             controller: _collegeController,
             maxLines: null,
-            autofocus: true,
             style: TextStyle(fontSize: 14),
             maxLength: 50,
+          ),
+          Header(
+            "DEGREE",
+            marginBottom: 0,
+          ),
+          TextField(
+            controller: _degreeController,
+            maxLines: null,
+            style: TextStyle(fontSize: 14),
+            maxLength: 50,
+          ),
+          Header(
+            "START YEAR",
+            marginBottom: 0,
+          ),
+          DropdownButton<int>(
+            isExpanded: true,
+            items: [
+              for (int i = currentYear - 70; i < (currentYear + 2); i++)
+                DropdownMenuItem(
+                  child: Text(i.toString()),
+                  value: i,
+                )
+            ],
+            value: _startYear ?? currentYear,
+            onChanged: (value) {
+              FocusScope.of(context).requestFocus(new FocusNode());
+
+              setState(() {
+                _startYear = value;
+              });
+            },
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Header(
+            "END YEAR",
+            marginBottom: 0,
+          ),
+          DropdownButton<int>(
+            isExpanded: true,
+            items: [
+              for (int i = currentYear - 70; i < currentYear + 10; i++)
+                DropdownMenuItem(
+                  child: Text(i.toString()),
+                  value: i,
+                )
+            ],
+            value: _endYear ?? currentYear,
+            onChanged: (value) {
+              FocusScope.of(context).requestFocus(new FocusNode());
+
+              setState(() {
+                _endYear = value;
+              });
+            },
+          ),
+          SizedBox(
+            height: 12,
           ),
           Header(
             "DESCRIPTION",
@@ -198,7 +305,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           TextField(
             controller: _descController,
             maxLines: null,
-            autofocus: true,
             style: TextStyle(fontSize: 14),
             maxLength: 300,
           ),
@@ -217,8 +323,11 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
                 }),
                 UpdateButton(() {
                   final newEducation = widget.education.copyWith(
-                    college: _collegeController.text,
-                    description: _descController.text,
+                    college: _collegeController.text?.trim(),
+                    description: _descController.text?.trim(),
+                    startYear: _startYear,
+                    endYear: _endYear,
+                    degree: _degreeController.text?.trim(),
                   );
                   _onUpdate(widget.education, newEducation, context);
                 }),
@@ -248,7 +357,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
         "educations": FieldValue.arrayUnion([model.toJson()])
       });
 
-      ToastUtils.show("Tagline updated!");
+      ToastUtils.show("Education updated!");
       Navigator.pop(context);
     } catch (e, s) {
       logger.e(e, s);
