@@ -22,7 +22,7 @@ mixin _$User {
   @JsonKey(includeIfNull: false)
   String get tagline;
   @JsonKey(includeIfNull: false)
-  List<Education> get education;
+  List<Education> get educations;
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
   @JsonKey(includeIfNull: false, defaultValue: false)
@@ -35,7 +35,7 @@ mixin _$User {
       @JsonKey(includeIfNull: false) String avatar,
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
-      @JsonKey(includeIfNull: false) List<Education> education,
+      @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 
@@ -51,7 +51,7 @@ class _$_User implements _User {
       @JsonKey(includeIfNull: false) this.avatar,
       this.provider,
       @JsonKey(includeIfNull: false) this.tagline,
-      @JsonKey(includeIfNull: false) this.education,
+      @JsonKey(includeIfNull: false) this.educations,
       @JsonKey(includeIfNull: false) this.startups,
       @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified});
 
@@ -75,7 +75,7 @@ class _$_User implements _User {
   final String tagline;
   @override
   @JsonKey(includeIfNull: false)
-  final List<Education> education;
+  final List<Education> educations;
   @override
   @JsonKey(includeIfNull: false)
   final List<dynamic> startups;
@@ -85,7 +85,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, education: $education, startups: $startups, isVerified: $isVerified)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, startups: $startups, isVerified: $isVerified)';
   }
 
   @override
@@ -106,9 +106,9 @@ class _$_User implements _User {
             (identical(other.tagline, tagline) ||
                 const DeepCollectionEquality()
                     .equals(other.tagline, tagline)) &&
-            (identical(other.education, education) ||
+            (identical(other.educations, educations) ||
                 const DeepCollectionEquality()
-                    .equals(other.education, education)) &&
+                    .equals(other.educations, educations)) &&
             (identical(other.startups, startups) ||
                 const DeepCollectionEquality()
                     .equals(other.startups, startups)) &&
@@ -126,7 +126,7 @@ class _$_User implements _User {
       avatar.hashCode ^
       provider.hashCode ^
       tagline.hashCode ^
-      education.hashCode ^
+      educations.hashCode ^
       startups.hashCode ^
       isVerified.hashCode;
 
@@ -138,7 +138,7 @@ class _$_User implements _User {
     Object avatar = freezed,
     Object provider = freezed,
     Object tagline = freezed,
-    Object education = freezed,
+    Object educations = freezed,
     Object startups = freezed,
     Object isVerified = freezed,
   }) {
@@ -149,8 +149,9 @@ class _$_User implements _User {
       avatar: avatar == freezed ? this.avatar : avatar as String,
       provider: provider == freezed ? this.provider : provider as String,
       tagline: tagline == freezed ? this.tagline : tagline as String,
-      education:
-          education == freezed ? this.education : education as List<Education>,
+      educations: educations == freezed
+          ? this.educations
+          : educations as List<Education>,
       startups: startups == freezed ? this.startups : startups as List<dynamic>,
       isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
     );
@@ -174,7 +175,7 @@ abstract class _User implements User {
       @JsonKey(includeIfNull: false)
           String tagline,
       @JsonKey(includeIfNull: false)
-          List<Education> education,
+          List<Education> educations,
       @JsonKey(includeIfNull: false)
           List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false)
@@ -199,7 +200,7 @@ abstract class _User implements User {
   String get tagline;
   @override
   @JsonKey(includeIfNull: false)
-  List<Education> get education;
+  List<Education> get educations;
   @override
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
@@ -215,7 +216,7 @@ abstract class _User implements User {
       @JsonKey(includeIfNull: false) String avatar,
       String provider,
       @JsonKey(includeIfNull: false) String tagline,
-      @JsonKey(includeIfNull: false) List<Education> education,
+      @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
 }

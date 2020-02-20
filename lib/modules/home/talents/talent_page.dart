@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/modules/home/widgets/menu_header.dart';
+import 'package:connectit_app/routes/routes.dart';
+import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:connectit_app/widgets/stream_loading.dart';
 import 'package:connectit_app/widgets/under_construction.dart';
+import 'package:connectit_app/widgets/verified_badge.dart';
 import 'package:flutter/material.dart';
 
 class TalentPage extends StatefulWidget {
@@ -15,7 +19,7 @@ class _TalentPageState extends State<TalentPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('users').snapshots(),
+        stream: _getStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             return ListView(
@@ -24,86 +28,39 @@ class _TalentPageState extends State<TalentPage> {
                   height: 8,
                 ),
                 MenuHeader("EXPLORE TALENTS"),
-                GridView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 0.9,
-                  ),
-                  children: <Widget>[
-                    ...snapshot.data.documents
-                        .map((e) => User.fromJson(e.data))
-                        .map(
-                          (e) => Container(
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              margin: EdgeInsets.all(0),
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
-                                side: BorderSide(
-                                    color: Theme.of(context).dividerColor),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Image.network(
-                                      e.avatar,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 8,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          e.name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                        SizedBox(
-                                          height: 2,
-                                        ),
-                                        Text(
-                                          "Description",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                ...snapshot.data.documents
+                    .map(
+                        (e) => User.fromJson(e.data).copyWith(id: e.documentID))
+                    .map(
+                      (user) => Container(
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.visitorProfile,
+                              arguments: user,
+                            );
+                          },
+                          leading: CircleAvatar(
+                            backgroundImage: CachedNetworkImageProvider(
+                              user.avatar,
                             ),
                           ),
-                        )
-                  ],
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                UnderConstruction(),
-                SizedBox(
-                  height: 32,
-                ),
+                          title: Row(
+                            children: <Widget>[
+                              Text(user.name),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              if (user.isVerified) VerifiedBadge()
+                            ],
+                          ),
+                          subtitle: checkIfNotEmpty(user.tagline)
+                              ? Text(user.tagline)
+                              : null,
+                        ),
+                      ),
+                    ),
               ],
             );
           } else if (snapshot.hasError)
@@ -111,5 +68,9 @@ class _TalentPageState extends State<TalentPage> {
           else
             return StreamLoadingWidget();
         });
+  }
+
+  _getStream() {
+    return Firestore.instance.collection('users').snapshots();
   }
 }

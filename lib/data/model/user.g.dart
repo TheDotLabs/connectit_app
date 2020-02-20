@@ -15,9 +15,9 @@ _$_User _$_$_UserFromJson(Map json) {
       avatar: $checkedConvert(json, 'avatar', (v) => v as String),
       provider: $checkedConvert(json, 'provider', (v) => v as String),
       tagline: $checkedConvert(json, 'tagline', (v) => v as String),
-      education: $checkedConvert(
+      educations: $checkedConvert(
           json,
-          'education',
+          'educations',
           (v) => (v as List)
               ?.map((e) => e == null
                   ? null
@@ -50,7 +50,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) {
   val['provider'] = instance.provider;
   writeNotNull('tagline', instance.tagline);
   writeNotNull(
-      'education', instance.education?.map((e) => e?.toJson())?.toList());
+      'educations', instance.educations?.map((e) => e?.toJson())?.toList());
   writeNotNull('startups', instance.startups);
   writeNotNull('isVerified', instance.isVerified);
   return val;

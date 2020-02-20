@@ -1,5 +1,6 @@
 import 'package:connectit_app/modules/home/home_page.dart';
 import 'package:connectit_app/modules/login/index.dart';
+import 'package:connectit_app/modules/profile/visitor_profile.dart';
 import 'package:connectit_app/modules/startup_detail/startup_detail_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,11 @@ class AppRoutes {
       case Routes.home:
         return MaterialPageRoute(builder: (_) => HomePage());
       case Routes.startupDetails:
-        return MaterialPageRoute(builder: (_) => StartupDetailPage(settings.arguments));
+        return MaterialPageRoute(
+            builder: (_) => StartupDetailPage(settings.arguments));
+      case Routes.visitorProfile:
+        return MaterialPageRoute(
+            builder: (_) => VisitorProfilePage(settings.arguments));
       /*case Routes.PROFILE:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       case Routes.SHOP:

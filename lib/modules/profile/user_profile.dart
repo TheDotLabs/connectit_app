@@ -33,11 +33,16 @@ class _ProfilePageState extends State<ProfilePage> {
               children: <Widget>[
                 ProfileHeader(user: user),
                 MyDivider(),
-                if (checkIfNotEmpty(user.tagline)) TaglineSection(user.tagline),
-                if (checkIfNotEmpty(user.tagline)) MyDivider(),
-                if (checkIfListIsNotEmpty(user.education))
-                  EducationSection(user.education),
-                if (checkIfListIsNotEmpty(user.education)) MyDivider(),
+                TaglineSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),
+                EducationSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),
                 if (checkIfListIsNotEmpty(user.startups))
                   StartupSection(user.startups),
                 if (checkIfListIsNotEmpty(user.startups)) MyDivider(),

@@ -1,55 +1,261 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectit_app/data/model/user.dart';
+import 'package:connectit_app/di/injector.dart';
+import 'package:connectit_app/utils/log_utils.dart';
+import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/SectionContainer.dart';
+import 'package:connectit_app/widgets/app_loader.dart';
+import 'package:connectit_app/widgets/cancel_button.dart';
 import 'package:connectit_app/widgets/header.dart';
+import 'package:connectit_app/widgets/my_divider.dart';
+import 'package:connectit_app/widgets/update_button.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class EducationSection extends StatelessWidget {
-  final List<Education> list;
+  final User user;
+  final bool edit;
 
-  EducationSection(this.list);
+  EducationSection(
+    this.user, {
+    this.edit = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SectionContainer(
+    return Container(
+      padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Header("EDUCATION"),
-          for (final education in list)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  education.college ?? "--",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      .copyWith(fontSize: 16),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                Text(
-                  "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
-                  style: Theme.of(context).textTheme.headline4.copyWith(
-                        fontSize: 14,
-                      ),
-                ),
-                if (checkIfNotEmpty(education.description))
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Text(
-                      education.description,
-                      style: Theme.of(context).textTheme.bodyText2,
+          if (checkIfListIsNotEmpty(user.educations))
+            for (final education in user.educations)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          education.college ?? "--",
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle2
+                              .copyWith(fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        if (education.startYear != null ||
+                            education.endYear != null)
+                          Text(
+                            "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
+                            style:
+                                Theme.of(context).textTheme.headline4.copyWith(
+                                      fontSize: 14,
+                                    ),
+                          ),
+                        if (checkIfNotEmpty(education.description))
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text(
+                              education.description,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-              ],
-            ),
+                  if (edit)
+                    IconButton(
+                      icon: Icon(
+                        LineAwesomeIcons.edit,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        _onEdit(context, education);
+                      },
+                    )
+                ],
+              )
 
           // Text(tagline),
+          else
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 0.0),
+                    child: Text(
+                      "----Add Education----",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(fontSize: 14),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          SizedBox(
+            height: 8,
+          ),
+          Container(
+            height: 40.0,
+            child: RaisedButton(
+              onPressed: () {
+                _onEdit(context, Education());
+              },
+              color: Colors.white,
+              elevation: 0,
+              highlightElevation: 0,
+              child: Text(
+                '+ ADD',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  void _onEdit(BuildContext context, Education education) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => SimpleDialog(
+        contentPadding: EdgeInsets.all(0),
+        children: <Widget>[
+          _MyEditingDialog(user, education),
+        ],
+      ),
+    );
+  }
+}
+
+class _MyEditingDialog extends StatefulWidget {
+  final User user;
+  final Education education;
+  _MyEditingDialog(this.user, this.education);
+
+  @override
+  _MyEditingDialogState createState() => _MyEditingDialogState();
+}
+
+class _MyEditingDialogState extends State<_MyEditingDialog> {
+  TextEditingController _collegeController;
+  TextEditingController _descController;
+
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _collegeController = TextEditingController.fromValue(
+      TextEditingValue(text: widget.education.college ?? ""),
+    );
+
+    _descController = TextEditingController.fromValue(
+      TextEditingValue(text: widget.education.description ?? ""),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        16,
+        16,
+        16,
+        0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Header(
+            "COLLEGE",
+            marginBottom: 0,
+          ),
+          TextField(
+            controller: _collegeController,
+            maxLines: null,
+            autofocus: true,
+            style: TextStyle(fontSize: 14),
+            maxLength: 50,
+          ),
+          Header(
+            "DESCRIPTION",
+            marginBottom: 0,
+          ),
+          TextField(
+            controller: _descController,
+            maxLines: null,
+            autofocus: true,
+            style: TextStyle(fontSize: 14),
+            maxLength: 300,
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          MyDivider(),
+          if (_isLoading)
+            AppLoader()
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                CancelButton(() {
+                  Navigator.pop(context);
+                }),
+                UpdateButton(() {
+                  final newEducation = widget.education.copyWith(
+                    college: _collegeController.text,
+                    description: _descController.text,
+                  );
+                  _onUpdate(widget.education, newEducation, context);
+                }),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _onUpdate(
+      Education oldModel, Education model, BuildContext context) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      injector<Firestore>()
+          .collection('users')
+          .document(widget.user.id)
+          .updateData({
+        "educations": FieldValue.arrayRemove([oldModel.toJson()])
+      });
+      injector<Firestore>()
+          .collection('users')
+          .document(widget.user.id)
+          .updateData({
+        "educations": FieldValue.arrayUnion([model.toJson()])
+      });
+
+      ToastUtils.show("Tagline updated!");
+      Navigator.pop(context);
+    } catch (e, s) {
+      logger.e(e, s);
+      setState(() {
+        _isLoading = false;
+      });
+      ToastUtils.showSomethingWrong();
+    }
   }
 }

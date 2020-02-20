@@ -5,7 +5,7 @@ class AppLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.all(16),
+        margin: EdgeInsets.all(14),
         height: 20,
         width: 20,
         alignment: Alignment.center,

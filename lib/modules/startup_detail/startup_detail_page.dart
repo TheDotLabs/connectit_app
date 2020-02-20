@@ -8,6 +8,7 @@ import 'package:connectit_app/modules/startup_detail/widgets/website_section.dar
 import 'package:connectit_app/utils/constants.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
+import 'package:connectit_app/widgets/verified_badge.dart';
 import 'package:flutter/material.dart';
 
 class StartupDetailPage extends StatefulWidget {
@@ -54,13 +55,24 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    widget.item.name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(letterSpacing: 1.05),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        widget.item.name,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(letterSpacing: 1.05),
+                      ),
+                      if (widget.item.isVerified)
+                        SizedBox(
+                          width: 6,
+                        ),
+                      if (widget.item.isVerified) VerifiedBadge()
+                    ],
                   ),
                   SizedBox(
                     height: 4,

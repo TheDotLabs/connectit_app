@@ -1,1 +1,2 @@
-export 'profile.dart';
+export 'user_profile.dart';
+export 'visitor_profile.dart';

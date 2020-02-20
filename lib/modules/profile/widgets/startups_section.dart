@@ -51,7 +51,10 @@ class StartupSection extends StatelessWidget {
                         subtitle: Text(startup.tagline),
                       );
                     } else
-                      return AppLoader();
+                      return ListTile(
+                        title: Text(""),
+                        subtitle: Text(""),
+                      );
                   },
                 )
             ],

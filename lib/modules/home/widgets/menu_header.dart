@@ -21,13 +21,13 @@ class MenuHeader extends StatelessWidget {
                   fontSize: 13,
                 ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-            child: Text(
-              "View All",
-              style: TextStyle(color: Colors.redAccent, fontSize: 12),
-            ),
-          )
+          // Container(
+          //   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+          //   child: Text(
+          //     "View All",
+          //     style: TextStyle(color: Colors.redAccent, fontSize: 12),
+          //   ),
+          // )
         ],
       ),
     );
