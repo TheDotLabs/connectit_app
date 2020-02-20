@@ -110,7 +110,7 @@ class EducationSection extends StatelessWidget {
               )
 
           // Text(tagline),
-          else
+          else if (edit)
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -128,24 +128,25 @@ class EducationSection extends StatelessWidget {
                 ),
               ],
             ),
-          Container(
-            height: 40.0,
-            child: RaisedButton(
-              onPressed: () {
-                _onEdit(context, Education());
-              },
-              color: Colors.white,
-              elevation: 0,
-              highlightElevation: 0,
-              child: Text(
-                '+ ADD',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.normal,
+          if (edit)
+            Container(
+              height: 40.0,
+              child: RaisedButton(
+                onPressed: () {
+                  _onEdit(context, Education());
+                },
+                color: Colors.white,
+                elevation: 0,
+                highlightElevation: 0,
+                child: Text(
+                  '+ ADD',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
