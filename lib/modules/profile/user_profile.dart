@@ -3,7 +3,6 @@ import 'package:connectit_app/modules/profile/widgets/edu_section.dart';
 import 'package:connectit_app/modules/profile/widgets/profile_header.dart';
 import 'package:connectit_app/modules/profile/widgets/startups_section.dart';
 import 'package:connectit_app/modules/profile/widgets/tag_section.dart';
-import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +48,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   edit: true,
                 ),
                 MyDivider(),
-                if (checkIfListIsNotEmpty(user.startups))
-                  StartupSection(user.startups),
-                if (checkIfListIsNotEmpty(user.startups)) MyDivider(),
+                StartupSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),
                 LogoutButton(),
                 MyDivider(),
               ],

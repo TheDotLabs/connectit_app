@@ -12,6 +12,7 @@ Startup _$StartupFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$Startup {
+  String get id;
   String get name;
   String get tagline;
   String get description;
@@ -25,9 +26,11 @@ mixin _$Startup {
   String get facebook;
   String get linkedIn;
   String get website;
+  List<dynamic> get admins;
 
   Startup copyWith(
-      {String name,
+      {String id,
+      String name,
       String tagline,
       String description,
       String avatar,
@@ -38,7 +41,8 @@ mixin _$Startup {
       List<dynamic> founders,
       String facebook,
       String linkedIn,
-      String website});
+      String website,
+      List<dynamic> admins});
 
   Map<String, dynamic> toJson();
 }
@@ -46,7 +50,8 @@ mixin _$Startup {
 @JsonSerializable()
 class _$_Startup implements _Startup {
   _$_Startup(
-      {this.name,
+      {this.id,
+      this.name,
       this.tagline,
       this.description,
       this.avatar,
@@ -57,11 +62,14 @@ class _$_Startup implements _Startup {
       this.founders,
       this.facebook,
       this.linkedIn,
-      this.website});
+      this.website,
+      this.admins});
 
   factory _$_Startup.fromJson(Map<String, dynamic> json) =>
       _$_$_StartupFromJson(json);
 
+  @override
+  final String id;
   @override
   final String name;
   @override
@@ -87,16 +95,20 @@ class _$_Startup implements _Startup {
   final String linkedIn;
   @override
   final String website;
+  @override
+  final List<dynamic> admins;
 
   @override
   String toString() {
-    return 'Startup(name: $name, tagline: $tagline, description: $description, avatar: $avatar, isVerified: $isVerified, isTrending: $isTrending, isUpcoming: $isUpcoming, isNew: $isNew, founders: $founders, facebook: $facebook, linkedIn: $linkedIn, website: $website)';
+    return 'Startup(id: $id, name: $name, tagline: $tagline, description: $description, avatar: $avatar, isVerified: $isVerified, isTrending: $isTrending, isUpcoming: $isUpcoming, isNew: $isNew, founders: $founders, facebook: $facebook, linkedIn: $linkedIn, website: $website, admins: $admins)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Startup &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.tagline, tagline) ||
@@ -128,12 +140,16 @@ class _$_Startup implements _Startup {
                 const DeepCollectionEquality()
                     .equals(other.linkedIn, linkedIn)) &&
             (identical(other.website, website) ||
-                const DeepCollectionEquality().equals(other.website, website)));
+                const DeepCollectionEquality()
+                    .equals(other.website, website)) &&
+            (identical(other.admins, admins) ||
+                const DeepCollectionEquality().equals(other.admins, admins)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      id.hashCode ^
       name.hashCode ^
       tagline.hashCode ^
       description.hashCode ^
@@ -145,10 +161,12 @@ class _$_Startup implements _Startup {
       founders.hashCode ^
       facebook.hashCode ^
       linkedIn.hashCode ^
-      website.hashCode;
+      website.hashCode ^
+      admins.hashCode;
 
   @override
   _$_Startup copyWith({
+    Object id = freezed,
     Object name = freezed,
     Object tagline = freezed,
     Object description = freezed,
@@ -161,8 +179,10 @@ class _$_Startup implements _Startup {
     Object facebook = freezed,
     Object linkedIn = freezed,
     Object website = freezed,
+    Object admins = freezed,
   }) {
     return _$_Startup(
+      id: id == freezed ? this.id : id as String,
       name: name == freezed ? this.name : name as String,
       tagline: tagline == freezed ? this.tagline : tagline as String,
       description:
@@ -176,6 +196,7 @@ class _$_Startup implements _Startup {
       facebook: facebook == freezed ? this.facebook : facebook as String,
       linkedIn: linkedIn == freezed ? this.linkedIn : linkedIn as String,
       website: website == freezed ? this.website : website as String,
+      admins: admins == freezed ? this.admins : admins as List<dynamic>,
     );
   }
 
@@ -187,7 +208,8 @@ class _$_Startup implements _Startup {
 
 abstract class _Startup implements Startup {
   factory _Startup(
-      {String name,
+      {String id,
+      String name,
       String tagline,
       String description,
       String avatar,
@@ -198,10 +220,13 @@ abstract class _Startup implements Startup {
       List<dynamic> founders,
       String facebook,
       String linkedIn,
-      String website}) = _$_Startup;
+      String website,
+      List<dynamic> admins}) = _$_Startup;
 
   factory _Startup.fromJson(Map<String, dynamic> json) = _$_Startup.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override
@@ -227,10 +252,13 @@ abstract class _Startup implements Startup {
   String get linkedIn;
   @override
   String get website;
+  @override
+  List<dynamic> get admins;
 
   @override
   _Startup copyWith(
-      {String name,
+      {String id,
+      String name,
       String tagline,
       String description,
       String avatar,
@@ -241,5 +269,6 @@ abstract class _Startup implements Startup {
       List<dynamic> founders,
       String facebook,
       String linkedIn,
-      String website});
+      String website,
+      List<dynamic> admins});
 }

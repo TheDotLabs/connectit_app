@@ -11,8 +11,12 @@ import 'package:connectit_app/widgets/stream_loading.dart';
 import 'package:flutter/material.dart';
 
 class TrendingStartupList extends StatelessWidget {
-  StreamTransformer<QuerySnapshot, List<Startup>> get streamTransformer => StreamTransformer.fromHandlers(handleData: (QuerySnapshot value, EventSink<List<Startup>> sink) {
-        final list = value.documents.map((e) => Startup.fromJson(e.data)).toList();
+  StreamTransformer<QuerySnapshot, List<Startup>> get streamTransformer =>
+      StreamTransformer.fromHandlers(
+          handleData: (QuerySnapshot value, EventSink<List<Startup>> sink) {
+        final list = value.documents
+            .map((e) => Startup.fromJson(e.data).copyWith(id: e.documentID))
+            .toList();
         sink.add(list);
       });
 
@@ -47,6 +51,10 @@ class TrendingStartupList extends StatelessWidget {
   }
 
   Stream<List<Startup>> _getStream() {
-    return injector<Firestore>().collection(Constants.startupsCollection).where(Constants.isTrending, isEqualTo: true).snapshots().transform(streamTransformer);
+    return injector<Firestore>()
+        .collection(Constants.startupsCollection)
+        .where(Constants.isTrending, isEqualTo: true)
+        .snapshots()
+        .transform(streamTransformer);
   }
 }

@@ -9,6 +9,7 @@ part of 'startup.dart';
 _$_Startup _$_$_StartupFromJson(Map json) {
   return $checkedNew(r'_$_Startup', json, () {
     final val = _$_Startup(
+      id: $checkedConvert(json, 'id', (v) => v as String),
       name: $checkedConvert(json, 'name', (v) => v as String),
       tagline: $checkedConvert(json, 'tagline', (v) => v as String),
       description: $checkedConvert(json, 'description', (v) => v as String),
@@ -22,6 +23,7 @@ _$_Startup _$_$_StartupFromJson(Map json) {
       facebook: $checkedConvert(json, 'facebook', (v) => v as String),
       linkedIn: $checkedConvert(json, 'linkedIn', (v) => v as String),
       website: $checkedConvert(json, 'website', (v) => v as String),
+      admins: $checkedConvert(json, 'admins', (v) => v as List),
     );
     return val;
   });
@@ -29,6 +31,7 @@ _$_Startup _$_$_StartupFromJson(Map json) {
 
 Map<String, dynamic> _$_$_StartupToJson(_$_Startup instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'tagline': instance.tagline,
       'description': instance.description,
@@ -41,4 +44,5 @@ Map<String, dynamic> _$_$_StartupToJson(_$_Startup instance) =>
       'facebook': instance.facebook,
       'linkedIn': instance.linkedIn,
       'website': instance.website,
+      'admins': instance.admins,
     };

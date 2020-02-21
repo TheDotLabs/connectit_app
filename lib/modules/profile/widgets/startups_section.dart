@@ -2,35 +2,38 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectit_app/data/model/startup.dart';
 import 'package:connectit_app/data/model/user.dart';
-import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/utils/constants.dart';
-import 'package:connectit_app/utils/top_level_utils.dart';
-import 'package:connectit_app/widgets/SectionContainer.dart';
-import 'package:connectit_app/widgets/app_loader.dart';
 import 'package:connectit_app/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class StartupSection extends StatelessWidget {
-  final List list;
+  final User user;
+  final bool edit;
 
-  StartupSection(this.list);
+  StartupSection(
+    this.user, {
+    this.edit = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SectionContainer(
+    return Container(
+      padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Header("IN STARTUPS"),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              for (final ref in list)
+              for (final ref in user.startups)
                 FutureBuilder<DocumentSnapshot>(
                   future: _getStartup(ref),
                   builder: (_, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
-                      final startup = Startup.fromJson(snapshot.data.data);
+                      final startup = Startup.fromJson(snapshot.data.data)
+                          .copyWith(id: snapshot.data.documentID);
                       return ListTile(
                         onTap: () {
                           Navigator.pushNamed(
@@ -56,7 +59,26 @@ class StartupSection extends StatelessWidget {
                         subtitle: Text(""),
                       );
                   },
-                )
+                ),
+              if (edit)
+                Container(
+                  height: 40.0,
+                  child: RaisedButton(
+                    onPressed: () {
+                      // _onEdit(context, Education());
+                    },
+                    color: Colors.white,
+                    elevation: 0,
+                    highlightElevation: 0,
+                    child: Text(
+                      '+ POST YOUR STARTUP',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           )
           // Text(tagline),

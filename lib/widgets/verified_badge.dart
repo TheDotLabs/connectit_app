@@ -6,7 +6,8 @@ class VerifiedBadge extends StatelessWidget {
     return Container(
       height: 14,
       width: 14,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blueAccent),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: Colors.greenAccent),
       child: Icon(
         Icons.done,
         color: Colors.white,

@@ -12,4 +12,5 @@ class Images {
   static const RECEIPT = '$_BASE_PATH/receipt.svg';
   static const CONSTRUCTION = '$_BASE_PATH/forklift.svg';
   static const EMPTY_BOX = '$_BASE_PATH/box.svg';
+  static const START = '$_BASE_PATH/start.svg';
 }
