@@ -88,6 +88,6 @@ class StartupSection extends StatelessWidget {
   }
 
   Future _getStartup(DocumentReference ref) {
-    return ref.get();
+    return ref.get(source: Source.cache);
   }
 }

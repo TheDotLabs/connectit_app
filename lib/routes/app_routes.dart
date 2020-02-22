@@ -1,4 +1,5 @@
 import 'package:connectit_app/modules/chat/chat_page.dart';
+import 'package:connectit_app/modules/chat/index.dart';
 import 'package:connectit_app/modules/home/home_page.dart';
 import 'package:connectit_app/modules/login/index.dart';
 import 'package:connectit_app/modules/profile/visitor_profile.dart';
@@ -27,6 +28,11 @@ class AppRoutes {
             (settings.arguments as List)[0],
             (settings.arguments as List)[1],
           ),
+        );
+
+      case Routes.chatRoom:
+        return MaterialPageRoute(
+          builder: (_) => RoomPage(),
         );
       /*case Routes.PROFILE:
         return MaterialPageRoute(builder: (_) => ProfileScreen());

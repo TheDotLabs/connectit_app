@@ -43,6 +43,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _controller.addListener(() {
       if (checkIfNotEmpty(_controller.text)) {
         setState(() {
@@ -127,23 +128,7 @@ class _ChatPageState extends State<ChatPage> {
                           IconButton(
                             icon: Icon(LineAwesomeIcons.paper_plane),
                             color: Colors.blueAccent,
-                            onPressed: _showSendBtn
-                                ? () {
-                                    final text = _controller.text;
-                                    final chat = Chat(
-                                      senderId: widget.sender.id,
-                                      receiverId: widget.receiver.id,
-                                      message: text,
-                                      time:
-                                          DateTime.now().millisecondsSinceEpoch,
-                                    );
-                                    injector<Firestore>()
-                                        .collection('chats')
-                                        .add(chat.toJson())
-                                        .then((value) => print(value.path));
-                                    _controller.clear();
-                                  }
-                                : null,
+                            onPressed: _showSendBtn ? _sendMessage : null,
                           )
                         ],
                       ),
@@ -173,9 +158,60 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Stream<List<Chat>> _getStream() {
-    final collectionReference =
-        Firestore.instance.collection("chats").orderBy('time');
+    final id = widget.receiver.id.hashCode ^ widget.sender.id.hashCode;
+
+    final collectionReference = Firestore.instance
+        .collection("chats")
+        .document(id.toString())
+        .collection('messages')
+        .orderBy('time');
     return collectionReference.snapshots().transform(_streamTransformer);
+  }
+
+  void _sendMessage() async {
+    final text = _controller.text;
+    final chat = Chat(
+      senderId: widget.sender.id,
+      receiverId: widget.receiver.id,
+      message: text,
+      time: DateTime.now().millisecondsSinceEpoch,
+    );
+    _controller.clear();
+    final id = widget.receiver.id.hashCode ^ widget.sender.id.hashCode;
+
+    injector<Firestore>()
+        .collection('chats')
+        .document(id.toString())
+        .collection('messages')
+        .add(chat.toJson())
+        .then((value) => print(value.path));
+    final doc = await injector<Firestore>()
+        .collection('chats')
+        .document(id.toString())
+        .get();
+    if (doc != null && doc.exists) {
+      injector<Firestore>()
+          .collection('chats')
+          .document(id.toString())
+          .updateData({
+        'users': [
+          widget.sender.id,
+          widget.receiver.id,
+        ],
+        'time': DateTime.now().millisecondsSinceEpoch,
+      });
+    } else {
+      injector<Firestore>().collection('chats').document(id.toString()).setData(
+        {
+          'users': [
+            widget.sender.id,
+            widget.receiver.id,
+          ],
+          'time': DateTime.now().millisecondsSinceEpoch,
+        },
+        merge: true,
+      );
+    }
   }
 }
 

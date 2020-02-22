@@ -10,4 +10,5 @@ class Routes {
   static const String startupDetails = "/startupDetails";
   static const String visitorProfile = 'visitorProfile';
   static const String chat = 'chat';
+  static const String chatRoom = 'chatRoom';
 }

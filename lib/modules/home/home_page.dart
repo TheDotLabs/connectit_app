@@ -1,6 +1,7 @@
 import 'package:connectit_app/modules/home/startup/startup_page.dart';
 import 'package:connectit_app/modules/home/talents/talent_page.dart';
 import 'package:connectit_app/modules/profile/index.dart';
+import 'package:connectit_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -14,12 +15,28 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [StartupPage(), TalentPage(), ProfilePage()];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         brightness: Brightness.light,
         title: Text("Connect IT- Demo"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              LineAwesomeIcons.envelope,
+              color: Colors.black87,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.chatRoom);
+            },
+          )
+        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
