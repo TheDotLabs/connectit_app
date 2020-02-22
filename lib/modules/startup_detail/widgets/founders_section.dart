@@ -23,8 +23,8 @@ class FoundersSection extends StatelessWidget {
           if (list != null)
             for (var i = 0; i < list.length; i++)
               FutureBuilder<DocumentSnapshot>(
-                future:
-                    (list[i] as DocumentReference).get(source: Source.cache),
+                future: (list[i] as DocumentReference)
+                    .get(source: Source.serverAndCache),
                 builder: (_, snapshot) {
                   if (snapshot.hasData && snapshot.data != null) {
                     final user = User.fromJson(snapshot.data.data)

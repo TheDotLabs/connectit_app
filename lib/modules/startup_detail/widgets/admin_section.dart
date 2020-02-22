@@ -25,7 +25,7 @@ class AdminSection extends StatelessWidget {
             for (var i = 0; i < startup.admins.length; i++)
               FutureBuilder<DocumentSnapshot>(
                 future: (startup.admins[i] as DocumentReference)
-                    .get(source: Source.cache),
+                    .get(source: Source.serverAndCache),
                 builder: (_, snapshot) {
                   if (snapshot.hasData && snapshot.data != null) {
                     final user = User.fromJson(snapshot.data.data)

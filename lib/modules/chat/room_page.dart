@@ -142,7 +142,7 @@ class _RoomPageState extends State<RoomPage> {
     return Firestore.instance
         .collection("users")
         .document(receiverId)
-        .get(source: Source.cache);
+        .get(source: Source.serverAndCache);
   }
 
   Widget _getNewMessagesCount(Room room) {
