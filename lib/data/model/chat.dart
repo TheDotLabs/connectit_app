@@ -11,6 +11,7 @@ abstract class Chat with _$Chat {
     String senderId,
     String receiverId,
     int time,
+    @JsonKey(defaultValue: false) bool read,
   }) = _Chat;
 
   factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);

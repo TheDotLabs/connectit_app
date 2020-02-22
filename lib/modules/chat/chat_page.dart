@@ -175,6 +175,7 @@ class _ChatPageState extends State<ChatPage> {
       receiverId: widget.receiver.id,
       message: text,
       time: DateTime.now().millisecondsSinceEpoch,
+      read: true,
     );
     _controller.clear();
     final id = widget.receiver.id.hashCode ^ widget.sender.id.hashCode;
@@ -212,6 +213,19 @@ class _ChatPageState extends State<ChatPage> {
         merge: true,
       );
     }
+    injector<Firestore>()
+        .collection('chats')
+        .document(id.toString())
+        .collection('messages')
+        .where('read', isEqualTo: false)
+        .getDocuments()
+        .then((value) {
+      value.documents.forEach((element) {
+        element.reference.updateData({
+          "read": true,
+        });
+      });
+    });
   }
 }
 

@@ -17,20 +17,29 @@ mixin _$Chat {
   String get senderId;
   String get receiverId;
   int get time;
+  @JsonKey(defaultValue: false)
+  bool get read;
 
   Chat copyWith(
       {String id,
       String message,
       String senderId,
       String receiverId,
-      int time});
+      int time,
+      @JsonKey(defaultValue: false) bool read});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_Chat implements _Chat {
-  _$_Chat({this.id, this.message, this.senderId, this.receiverId, this.time});
+  _$_Chat(
+      {this.id,
+      this.message,
+      this.senderId,
+      this.receiverId,
+      this.time,
+      @JsonKey(defaultValue: false) this.read});
 
   factory _$_Chat.fromJson(Map<String, dynamic> json) =>
       _$_$_ChatFromJson(json);
@@ -45,10 +54,13 @@ class _$_Chat implements _Chat {
   final String receiverId;
   @override
   final int time;
+  @override
+  @JsonKey(defaultValue: false)
+  final bool read;
 
   @override
   String toString() {
-    return 'Chat(id: $id, message: $message, senderId: $senderId, receiverId: $receiverId, time: $time)';
+    return 'Chat(id: $id, message: $message, senderId: $senderId, receiverId: $receiverId, time: $time, read: $read)';
   }
 
   @override
@@ -67,7 +79,9 @@ class _$_Chat implements _Chat {
                 const DeepCollectionEquality()
                     .equals(other.receiverId, receiverId)) &&
             (identical(other.time, time) ||
-                const DeepCollectionEquality().equals(other.time, time)));
+                const DeepCollectionEquality().equals(other.time, time)) &&
+            (identical(other.read, read) ||
+                const DeepCollectionEquality().equals(other.read, read)));
   }
 
   @override
@@ -77,7 +91,8 @@ class _$_Chat implements _Chat {
       message.hashCode ^
       senderId.hashCode ^
       receiverId.hashCode ^
-      time.hashCode;
+      time.hashCode ^
+      read.hashCode;
 
   @override
   _$_Chat copyWith({
@@ -86,6 +101,7 @@ class _$_Chat implements _Chat {
     Object senderId = freezed,
     Object receiverId = freezed,
     Object time = freezed,
+    Object read = freezed,
   }) {
     return _$_Chat(
       id: id == freezed ? this.id : id as String,
@@ -94,6 +110,7 @@ class _$_Chat implements _Chat {
       receiverId:
           receiverId == freezed ? this.receiverId : receiverId as String,
       time: time == freezed ? this.time : time as int,
+      read: read == freezed ? this.read : read as bool,
     );
   }
 
@@ -109,7 +126,8 @@ abstract class _Chat implements Chat {
       String message,
       String senderId,
       String receiverId,
-      int time}) = _$_Chat;
+      int time,
+      @JsonKey(defaultValue: false) bool read}) = _$_Chat;
 
   factory _Chat.fromJson(Map<String, dynamic> json) = _$_Chat.fromJson;
 
@@ -123,6 +141,9 @@ abstract class _Chat implements Chat {
   String get receiverId;
   @override
   int get time;
+  @override
+  @JsonKey(defaultValue: false)
+  bool get read;
 
   @override
   _Chat copyWith(
@@ -130,5 +151,6 @@ abstract class _Chat implements Chat {
       String message,
       String senderId,
       String receiverId,
-      int time});
+      int time,
+      @JsonKey(defaultValue: false) bool read});
 }

@@ -7,7 +7,6 @@ import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/data/repo/user/base/user_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/routes/routes.dart';
-import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/no_chats.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:connectit_app/widgets/stream_loading.dart';
@@ -76,7 +75,8 @@ class _RoomPageState extends State<RoomPage> {
                                       final user =
                                           User.fromJson(snapshot.data.data)
                                               .copyWith(
-                                                  id: snapshot.data.documentID);
+                                        id: snapshot.data.documentID,
+                                      );
                                       return ListTile(
                                         onTap: () {
                                           Navigator.pushNamed(
@@ -103,9 +103,7 @@ class _RoomPageState extends State<RoomPage> {
                                             if (user.isVerified) VerifiedBadge()
                                           ],
                                         ),
-                                        subtitle: checkIfNotEmpty(user.tagline)
-                                            ? Text(user.tagline)
-                                            : null,
+                                        subtitle: _getNewMessagesCount(list[i]),
                                       );
                                     } else {
                                       return ListTile(
@@ -141,10 +139,43 @@ class _RoomPageState extends State<RoomPage> {
   _getReceiverUser(List<String> users) {
     final receiverId =
         users.firstWhere((element) => element != _currentUser.id);
-
     return Firestore.instance
         .collection("users")
         .document(receiverId)
         .get(source: Source.cache);
+  }
+
+  Widget _getNewMessagesCount(Room room) {
+    final query = Firestore.instance
+        .collection("chats")
+        .document(room.id)
+        .collection('messages')
+        .where('read', isEqualTo: false);
+    return StreamBuilder<QuerySnapshot>(
+      stream: query.snapshots(),
+      builder: (_, snapsshot) {
+        if (snapsshot.hasData &&
+            snapsshot.data != null &&
+            snapsshot.data.documents.length > 0) {
+          final count = snapsshot.data.documents.length;
+
+          return Text(
+            "$count New Messages",
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+          );
+        } else {
+          return Text(
+            "Tap to chat",
+            style: Theme.of(context)
+                .textTheme
+                .headline4
+                .copyWith(fontWeight: FontWeight.w300, fontSize: 14),
+          );
+        }
+      },
+    );
   }
 }

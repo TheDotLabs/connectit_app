@@ -14,6 +14,7 @@ _$_Chat _$_$_ChatFromJson(Map json) {
       senderId: $checkedConvert(json, 'senderId', (v) => v as String),
       receiverId: $checkedConvert(json, 'receiverId', (v) => v as String),
       time: $checkedConvert(json, 'time', (v) => v as int),
+      read: $checkedConvert(json, 'read', (v) => v as bool) ?? false,
     );
     return val;
   });
@@ -25,4 +26,5 @@ Map<String, dynamic> _$_$_ChatToJson(_$_Chat instance) => <String, dynamic>{
       'senderId': instance.senderId,
       'receiverId': instance.receiverId,
       'time': instance.time,
+      'read': instance.read,
     };
