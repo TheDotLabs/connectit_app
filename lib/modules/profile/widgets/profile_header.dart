@@ -6,8 +6,13 @@ import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final User user;
+  final bool showEmail;
 
-  const ProfileHeader({Key key, @required this.user}) : super(key: key);
+  const ProfileHeader({
+    Key key,
+    @required this.user,
+    this.showEmail = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +40,17 @@ class ProfileHeader extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    
                     SizedBox(
                       width: 6,
                     ),
-                    if(user.isVerified)
-                    VerifiedBadge(),
+                    if (user.isVerified) VerifiedBadge(),
                   ],
                 ),
-                Text(
-                  user.email,
-                  style: TextStyle(color: Colors.black54),
-                ),
+                if (showEmail)
+                  Text(
+                    user.email,
+                    style: TextStyle(color: Colors.black54),
+                  ),
               ],
             )
           ],

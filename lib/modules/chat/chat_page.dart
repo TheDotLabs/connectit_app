@@ -98,6 +98,7 @@ class _ChatPageState extends State<ChatPage> {
                               vertical: 4,
                               horizontal: 4,
                             ),
+                            reverse: true,
                             children: <Widget>[
                               ...list
                                   .map((e) => ChatBox(e, widget.sender))
@@ -164,7 +165,7 @@ class _ChatPageState extends State<ChatPage> {
         .collection("chats")
         .document(id.toString())
         .collection('messages')
-        .orderBy('time');
+        .orderBy('time', descending: true);
     return collectionReference.snapshots().transform(_streamTransformer);
   }
 

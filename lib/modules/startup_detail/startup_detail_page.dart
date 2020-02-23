@@ -12,12 +12,19 @@ import 'package:connectit_app/modules/startup_detail/widgets/founders_section.da
 import 'package:connectit_app/modules/startup_detail/widgets/linkedin_section.dart';
 import 'package:connectit_app/modules/startup_detail/widgets/website_section.dart';
 import 'package:connectit_app/utils/constants.dart';
+import 'package:connectit_app/utils/log_utils.dart';
+import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
+import 'package:connectit_app/widgets/app_loader.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
+import 'package:connectit_app/widgets/startup_edit/startup_edit.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:connectit_app/widgets/stream_loading.dart';
 import 'package:connectit_app/widgets/verified_badge.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 
 class StartupDetailPage extends StatefulWidget {
   final Startup startup;
@@ -29,6 +36,8 @@ class StartupDetailPage extends StatefulWidget {
 }
 
 class _StartupDetailPageState extends State<StartupDetailPage> {
+  bool _isLoading = false;
+
   StreamTransformer<DocumentSnapshot, Startup> get _streamTransformer =>
       StreamTransformer.fromHandlers(
         handleData: (DocumentSnapshot value, EventSink<Startup> sink) {
@@ -60,13 +69,49 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    CachedNetworkImage(
-                      imageUrl: startup.avatar ?? Constants.defaultStartupImage,
-                      fit: BoxFit.fitHeight,
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                    ),
+                    _isLoading
+                        ? Container(
+                            height: 200,
+                            child: Center(
+                              child: AppLoader(),
+                            ),
+                          )
+                        : Stack(
+                            children: <Widget>[
+                              CachedNetworkImage(
+                                imageUrl: startup.avatar ??
+                                    Constants.defaultStartupImage,
+                                fit: BoxFit.fitHeight,
+                                height: 200,
+                                width: MediaQuery.of(context).size.width,
+                                alignment: Alignment.center,
+                              ),
+                              if (_shouldEdit(widget.startup))
+                                Positioned(
+                                  right: 8,
+                                  top: 4,
+                                  child: InkWell(
+                                    onTap: _onImageEdit,
+                                    child: Chip(
+                                      label: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey[700],
+                                            size: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text("Add new cover"),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
                     Divider(
                       height: 1,
                     ),
@@ -119,7 +164,7 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
                     ),
                     DescriptionSection(
                       startup,
-                      edit: _shouldEdit(startup),
+                      edit: false,
                     ),
                     MyDivider(),
                     FoundersSection(startup.founders),
@@ -144,6 +189,38 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
               return StreamLoadingWidget();
             }
           }),
+      bottomNavigationBar: _shouldEdit(widget.startup)
+          ? BottomAppBar(
+              child: Container(
+                height: 44.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => SimpleDialog(
+                        contentPadding: EdgeInsets.all(0),
+                        children: <Widget>[
+                          StartupEditDialog(
+                            edit: true,
+                            startup: widget.startup,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  color: Colors.white,
+                  elevation: 0,
+                  highlightElevation: 0,
+                  child: Text(
+                    'EDIT DETAILS',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            )
+          : null,
     );
   }
 
@@ -165,5 +242,38 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
         .document(widget.startup.id)
         .snapshots()
         .transform(_streamTransformer);
+  }
+
+  void _onImageEdit() async {
+    try {
+      final _file = await ImagePicker.pickImage(
+          source: ImageSource.gallery, maxHeight: 800);
+      if (_file != null) {
+        setState(() {
+          _isLoading = true;
+        });
+        final storageReference = FirebaseStorage()
+            .ref()
+            .child('startups/${Path.basename(_file.path)}');
+        final uploadTask = storageReference.putFile(_file);
+        await uploadTask.onComplete;
+        print('File Uploaded');
+        final avatar = await storageReference.getDownloadURL();
+        final startupRef2 = injector<Firestore>()
+            .collection('startups')
+            .document(widget.startup.id);
+        await startupRef2.updateData({
+          'avatar': avatar,
+        });
+        ToastUtils.show("Cover updated!");
+      }
+    } catch (e, s) {
+      logger.e(e, s);
+      ToastUtils.show("Error in updating cover!");
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }

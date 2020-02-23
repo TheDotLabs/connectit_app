@@ -16,7 +16,7 @@ class StartupCard extends StatelessWidget {
       aspectRatio: 1.4,
       child: Container(
         margin: EdgeInsets.symmetric(
-          horizontal: 6,
+          horizontal: 2,
         ),
         child: InkWell(
           onTap: () {
@@ -56,10 +56,11 @@ class StartupCard extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             item.name ?? "--",
-                            style: Theme.of(context).textTheme.subtitle1.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.05,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.subtitle1.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.05,
+                                    ),
                           ),
                           SizedBox(
                             width: 4,
@@ -72,7 +73,10 @@ class StartupCard extends StatelessWidget {
                       ),
                       Text(
                         item.tagline ?? "--",
-                        style: Theme.of(context).textTheme.display1.copyWith(fontSize: 13),
+                        style: Theme.of(context)
+                            .textTheme
+                            .display1
+                            .copyWith(fontSize: 13),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

@@ -31,7 +31,10 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               physics: BouncingScrollPhysics(),
               children: <Widget>[
-                ProfileHeader(user: user),
+                ProfileHeader(
+                  user: user,
+                  showEmail: true,
+                ),
                 MyDivider(),
                 TaglineSection(
                   user,
