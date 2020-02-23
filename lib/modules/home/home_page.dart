@@ -137,19 +137,18 @@ class _HomePageState extends State<HomePage> {
         (element) async {
           element.reference
               .collection('messages')
+              .where('receiverId', isEqualTo: _currentUser.uid)
               .where(
                 'read',
                 isEqualTo: false,
               )
               .snapshots()
               .listen((event) {
-            setState(() {
-              _messages = 0;
-            });
             final count = event.documents.length;
             if (mounted) {
               setState(() {
-                print("jubjb" + _messages.toString());
+                print("message: " + _messages.toString());
+                print("count: " + count.toString());
                 _messages = _messages + count;
               });
             }

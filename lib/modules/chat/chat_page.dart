@@ -176,7 +176,7 @@ class _ChatPageState extends State<ChatPage> {
       receiverId: widget.receiver.id,
       message: text,
       time: DateTime.now().millisecondsSinceEpoch,
-      read: true,
+      read: false,
     );
     _controller.clear();
     final id = widget.receiver.id.hashCode ^ widget.sender.id.hashCode;
@@ -218,6 +218,7 @@ class _ChatPageState extends State<ChatPage> {
         .collection('chats')
         .document(id.toString())
         .collection('messages')
+        .where('receiverId', isEqualTo: widget.sender.id)
         .where('read', isEqualTo: false)
         .getDocuments()
         .then((value) {

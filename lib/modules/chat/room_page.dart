@@ -150,6 +150,7 @@ class _RoomPageState extends State<RoomPage> {
         .collection("chats")
         .document(room.id)
         .collection('messages')
+        .where('receiverId', isEqualTo: _currentUser.id)
         .where('read', isEqualTo: false);
     return StreamBuilder<QuerySnapshot>(
       stream: query.snapshots(),
