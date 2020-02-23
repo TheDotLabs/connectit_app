@@ -2,6 +2,8 @@
 /// Add image to assets/images at root and then add the path here.
 
 class Images {
+  static String logo = '$_BASE_PATH/logo.svg';
+
   Images._();
 
   static const String _BASE_PATH = 'assets/images';

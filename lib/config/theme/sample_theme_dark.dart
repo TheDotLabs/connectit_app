@@ -4,7 +4,7 @@ import '../fonts.dart';
 import 'material_color.dart';
 
 class ThemeDark {
-  static final ThemeData themeData = ThemeData(
+  final ThemeData themeData = ThemeData(
     brightness: Brightness.dark,
     primarySwatch: _primarySwatch,
     primaryColor: _primaryColor,

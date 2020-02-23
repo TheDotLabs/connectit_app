@@ -4,8 +4,9 @@ import 'package:connectit_app/modules/login/index.dart';
 import 'package:connectit_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import 'config/theme/theme.dart';
+import 'config/fonts.dart';
 import 'data/local/prefs/prefs_helper.dart';
 import 'di/injector.dart';
 
@@ -17,20 +18,47 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Injector().init();
-  final theme = ThemeModel();
-  final _defaultHome = prefsHelper.isLogin ? HomePage() : LoginScreen();
 
-  runApp(
-    BotToastInit(
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final _defaultHome = prefsHelper.isLogin ? HomePage() : LoginScreen();
+
+    return BotToastInit(
       child: MaterialApp(
         title: 'Connect IT',
         debugShowCheckedModeBanner: false,
-        theme: theme.lightTheme,
-        darkTheme: theme.lightTheme,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.blue,
+          fontFamily: Fonts.DEFAULT_FONT,
+          scaffoldBackgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black87,
+          ),
+          appBarTheme: AppBarTheme(
+            brightness: Brightness.dark,
+            color: Colors.white,
+            elevation: 1,
+            iconTheme: IconThemeData(
+              color: Colors.black87,
+            ),
+            textTheme: TextTheme(
+              title: GoogleFonts.nunito(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
         home: _defaultHome,
         navigatorObservers: [BotToastNavigatorObserver()],
         onGenerateRoute: AppRoutes.generateRoute,
       ),
-    ),
-  );
+    );
+  }
 }

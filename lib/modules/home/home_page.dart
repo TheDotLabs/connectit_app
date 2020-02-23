@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectit_app/constants/images.dart';
+import 'package:connectit_app/modules/home/feeds/feeds_page.dart';
 import 'package:connectit_app/modules/home/startup/startup_page.dart';
 import 'package:connectit_app/modules/home/talents/talent_page.dart';
 import 'package:connectit_app/modules/profile/index.dart';
 import 'package:connectit_app/routes/routes.dart';
+import 'package:connectit_app/widgets/svg_icon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -14,7 +17,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final List<Widget> _children = [StartupPage(), TalentPage(), ProfilePage()];
+  final List<Widget> _children = [
+    StartupPage(),
+    FeedPage(),
+    TalentPage(),
+    ProfilePage(),
+  ];
 
   int _messages = 0;
 
@@ -29,15 +37,27 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light,
-        title: Text("Connect IT- Demo"),
+        title: Row(
+          children: <Widget>[
+            SvgIcon(
+              assetName: Images.logo,
+              height: 32,
+              width: 32,
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              "Connect IT- Demo",
+            ),
+          ],
+        ),
         actions: <Widget>[
           Stack(
             children: <Widget>[
               IconButton(
                 icon: Icon(
                   LineAwesomeIcons.envelope,
-                  color: Colors.black87,
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.chatRoom);
@@ -67,12 +87,22 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        onTap: _onTabTapped, // new
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        onTap: _onTabTapped,
+        // new
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: new Icon(LineAwesomeIcons.home),
             title: new Text('Startups'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(LineAwesomeIcons.copy),
+            title: new Text('Feeds'),
           ),
           BottomNavigationBarItem(
             icon: new Icon(LineAwesomeIcons.users),
