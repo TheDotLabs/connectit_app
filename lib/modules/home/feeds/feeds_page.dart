@@ -216,8 +216,9 @@ class _FeedPageState extends State<FeedPage> {
   Stream<List<Feed>> _getStream() {
     return Firestore.instance
         .collection('feeds')
-        .where('hidden', isEqualTo: false)
         .orderBy('time', descending: true)
+        .where('hidden', isEqualTo: false)
+        .limit(20)
         .snapshots()
         .transform(streamTransformer);
   }
@@ -263,7 +264,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Header(
-            "DESCRIPTION",
+            "POST SOMETHING",
             marginBottom: 0,
           ),
           TextField(

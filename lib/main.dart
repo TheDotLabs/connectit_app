@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             color: Colors.black87,
           ),
           appBarTheme: AppBarTheme(
-            brightness: Brightness.dark,
+            brightness: Brightness.light,
             color: Colors.white,
             elevation: 1,
             iconTheme: IconThemeData(
