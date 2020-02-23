@@ -129,32 +129,31 @@ class _HomePageState extends State<HomePage> {
         .collection("chats")
         .where('users', arrayContains: _currentUser.uid)
         .snapshots()
-        .listen((event) {
-      setState(() {
-        _messages = 0;
-      });
-      event.documents.forEach(
-        (element) async {
-          element.reference
+        .listen(
+      (event) {
+        setState(() {
+          _messages = 0;
+        });
+        event.documents.forEach((element) async {
+          final docs = await element.reference
               .collection('messages')
               .where('receiverId', isEqualTo: _currentUser.uid)
               .where(
                 'read',
                 isEqualTo: false,
               )
-              .snapshots()
-              .listen((event) {
-            final count = event.documents.length;
-            if (mounted) {
-              setState(() {
-                print("message: " + _messages.toString());
-                print("count: " + count.toString());
-                _messages = _messages + count;
-              });
-            }
-          });
-        },
-      );
-    });
+              .getDocuments(source: Source.serverAndCache);
+
+          final count = docs.documents.length;
+          if (mounted) {
+            setState(() {
+              print("message: " + _messages.toString());
+              print("count: " + count.toString());
+              _messages = _messages + count;
+            });
+          }
+        });
+      },
+    );
   }
 }
