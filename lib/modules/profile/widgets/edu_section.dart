@@ -4,7 +4,6 @@ import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
-import 'package:connectit_app/widgets/SectionContainer.dart';
 import 'package:connectit_app/widgets/app_loader.dart';
 import 'package:connectit_app/widgets/cancel_button.dart';
 import 'package:connectit_app/widgets/header.dart';
@@ -237,6 +236,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
             controller: _collegeController,
             maxLines: null,
             style: TextStyle(fontSize: 14),
+            decoration: InputDecoration(hintText: "..."),
             maxLength: 50,
           ),
           Header(
@@ -247,6 +247,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
             controller: _degreeController,
             maxLines: null,
             style: TextStyle(fontSize: 14),
+            decoration: InputDecoration(hintText: "..."),
             maxLength: 50,
           ),
           Header(
@@ -308,6 +309,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
             maxLines: null,
             style: TextStyle(fontSize: 14),
             maxLength: 300,
+            decoration: InputDecoration(hintText: "..."),
           ),
           SizedBox(
             height: 16,

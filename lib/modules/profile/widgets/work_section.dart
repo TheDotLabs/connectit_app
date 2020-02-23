@@ -4,7 +4,6 @@ import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
-import 'package:connectit_app/widgets/SectionContainer.dart';
 import 'package:connectit_app/widgets/app_loader.dart';
 import 'package:connectit_app/widgets/cancel_button.dart';
 import 'package:connectit_app/widgets/header.dart';
@@ -238,6 +237,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           TextField(
             controller: _companyController,
             maxLines: null,
+            decoration: InputDecoration(hintText: "..."),
             style: TextStyle(fontSize: 14),
             maxLength: 50,
           ),
@@ -247,6 +247,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           ),
           TextField(
             controller: _roleController,
+            decoration: InputDecoration(hintText: "..."),
             maxLines: null,
             style: TextStyle(fontSize: 14),
             maxLength: 50,
@@ -320,6 +321,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           TextField(
             controller: _descController,
             maxLines: null,
+            decoration: InputDecoration(hintText: "..."),
             style: TextStyle(fontSize: 14),
             maxLength: 300,
           ),

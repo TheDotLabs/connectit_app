@@ -1,12 +1,9 @@
-import 'package:connectit_app/data/repo/user/base/user_repository.dart';
-import 'package:connectit_app/data/repo/user/user_repository_impl.dart';
-import 'package:connectit_app/di/injector.dart';
-import 'package:connectit_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class UpdateButton extends StatelessWidget {
   final VoidCallback onTap;
-  UpdateButton(this.onTap);
+  final String text;
+  UpdateButton(this.onTap, {this.text});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +14,7 @@ class UpdateButton extends StatelessWidget {
         elevation: 0,
         highlightElevation: 0,
         child: Text(
-          'UPDATE',
+          text ?? 'UPDATE',
           style: TextStyle(
             color: Colors.blue,
           ),
