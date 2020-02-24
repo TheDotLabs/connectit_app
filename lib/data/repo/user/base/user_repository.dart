@@ -8,5 +8,7 @@ abstract class UserRepository {
 
   User getLoggedInUser();
 
+  String getFcmToken();
+
   void logoutUser() {}
 }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/di/injector.dart';
-import 'package:connectit_app/utils/constants.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
@@ -31,7 +30,7 @@ class TaglineSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Header("TAGLINE"),
+                if (edit) Header("TAGLINE"),
                 if (checkIfNotEmpty(user.tagline))
                   Text(user.tagline)
                 else

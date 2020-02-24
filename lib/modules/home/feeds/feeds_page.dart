@@ -292,11 +292,13 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           ),
           AddImage(_file, _onImageTap),
           TextField(
-            controller: _descController,
             maxLines: null,
+            minLines: 2,
             decoration: InputDecoration(hintText: "..."),
             style: TextStyle(fontSize: 14),
             maxLength: 1000,
+            textInputAction: TextInputAction.newline,
+            keyboardType: TextInputType.multiline,
           ),
           SizedBox(
             height: 16,

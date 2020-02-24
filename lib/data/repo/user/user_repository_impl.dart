@@ -9,6 +9,7 @@ import 'package:connectit_app/data/repo/user/google_login_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -17,6 +18,8 @@ import 'base/user_repository.dart';
 class UserRepositoryImpl implements UserRepository {
   final Firestore firestore;
   final _userSubject = BehaviorSubject<User>.seeded(null);
+
+  String _fcmToken;
 
   UserRepositoryImpl({@required this.firestore}) {
     init();
@@ -49,17 +52,23 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   Future<void> init() async {
+    final FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
     try {
-      final FirebaseUser firebaseUser =
-          await FirebaseAuth.instance.currentUser();
       firestore
           .collection('users')
           .document(firebaseUser.uid)
           .snapshots()
-          .listen((event) {
-        if (event != null)
+          .listen((event) async {
+        if (event != null) {
           _userSubject.add(User.fromJson(event.data));
-        else
+          final _firebaseMessaging = FirebaseMessaging();
+          _firebaseMessaging.setAutoInitEnabled(true);
+          _fcmToken = await _firebaseMessaging.getToken();
+          await firestore
+              .collection('users')
+              .document(firebaseUser.uid)
+              .updateData({'fcmToken': _fcmToken});
+        } else
           _userSubject.add(null);
       });
     } catch (e, s) {
@@ -84,5 +93,11 @@ class UserRepositoryImpl implements UserRepository {
     await injector<GoogleLoginRepository>().logout();
     prefsHelper.isLogin = false;
     prefsHelper.userData = null;
+  }
+
+  @override
+  String getFcmToken() {
+    // TODO: implement getFcmToken
+    return _fcmToken;
   }
 }
