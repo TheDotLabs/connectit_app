@@ -15,6 +15,7 @@ mixin _$Feed {
   String get id;
   String get title;
   String get description;
+  String get avatar;
   @JsonKey(defaultValue: 0)
   int get time;
   dynamic get author;
@@ -25,6 +26,7 @@ mixin _$Feed {
       {String id,
       String title,
       String description,
+      String avatar,
       @JsonKey(defaultValue: 0) int time,
       dynamic author,
       @JsonKey(defaultValue: false) bool hidden});
@@ -38,6 +40,7 @@ class _$_Feed implements _Feed {
       {this.id,
       this.title,
       this.description,
+      this.avatar,
       @JsonKey(defaultValue: 0) this.time,
       this.author,
       @JsonKey(defaultValue: false) this.hidden});
@@ -52,6 +55,8 @@ class _$_Feed implements _Feed {
   @override
   final String description;
   @override
+  final String avatar;
+  @override
   @JsonKey(defaultValue: 0)
   final int time;
   @override
@@ -62,7 +67,7 @@ class _$_Feed implements _Feed {
 
   @override
   String toString() {
-    return 'Feed(id: $id, title: $title, description: $description, time: $time, author: $author, hidden: $hidden)';
+    return 'Feed(id: $id, title: $title, description: $description, avatar: $avatar, time: $time, author: $author, hidden: $hidden)';
   }
 
   @override
@@ -76,6 +81,8 @@ class _$_Feed implements _Feed {
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
+            (identical(other.avatar, avatar) ||
+                const DeepCollectionEquality().equals(other.avatar, avatar)) &&
             (identical(other.time, time) ||
                 const DeepCollectionEquality().equals(other.time, time)) &&
             (identical(other.author, author) ||
@@ -90,6 +97,7 @@ class _$_Feed implements _Feed {
       id.hashCode ^
       title.hashCode ^
       description.hashCode ^
+      avatar.hashCode ^
       time.hashCode ^
       author.hashCode ^
       hidden.hashCode;
@@ -99,6 +107,7 @@ class _$_Feed implements _Feed {
     Object id = freezed,
     Object title = freezed,
     Object description = freezed,
+    Object avatar = freezed,
     Object time = freezed,
     Object author = freezed,
     Object hidden = freezed,
@@ -108,6 +117,7 @@ class _$_Feed implements _Feed {
       title: title == freezed ? this.title : title as String,
       description:
           description == freezed ? this.description : description as String,
+      avatar: avatar == freezed ? this.avatar : avatar as String,
       time: time == freezed ? this.time : time as int,
       author: author == freezed ? this.author : author as dynamic,
       hidden: hidden == freezed ? this.hidden : hidden as bool,
@@ -125,6 +135,7 @@ abstract class _Feed implements Feed {
       {String id,
       String title,
       String description,
+      String avatar,
       @JsonKey(defaultValue: 0) int time,
       dynamic author,
       @JsonKey(defaultValue: false) bool hidden}) = _$_Feed;
@@ -137,6 +148,8 @@ abstract class _Feed implements Feed {
   String get title;
   @override
   String get description;
+  @override
+  String get avatar;
   @override
   @JsonKey(defaultValue: 0)
   int get time;
@@ -151,6 +164,7 @@ abstract class _Feed implements Feed {
       {String id,
       String title,
       String description,
+      String avatar,
       @JsonKey(defaultValue: 0) int time,
       dynamic author,
       @JsonKey(defaultValue: false) bool hidden});

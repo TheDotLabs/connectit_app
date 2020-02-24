@@ -274,7 +274,7 @@ class ChatBox extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          DateFormat('dd MMM yy hh:mm').format(
+                          DateFormat('dd MMM yy hh:mm a').format(
                               DateTime.fromMillisecondsSinceEpoch(chat.time)),
                           textAlign: TextAlign.end,
                           style: Theme.of(context)
@@ -317,7 +317,7 @@ class ChatBox extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          DateFormat('dd MMM yy hh:mm').format(
+                          DateFormat('dd MMM yy hh:mm a').format(
                               DateTime.fromMillisecondsSinceEpoch(chat.time)),
                           style: Theme.of(context)
                               .textTheme

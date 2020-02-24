@@ -9,6 +9,7 @@ abstract class Feed with _$Feed {
     String id,
     String title,
     String description,
+    String avatar,
     @JsonKey(defaultValue: 0) int time,
     dynamic author,
     @JsonKey(defaultValue: false) bool hidden,

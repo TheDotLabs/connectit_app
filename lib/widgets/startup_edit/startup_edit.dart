@@ -6,6 +6,7 @@ import 'package:connectit_app/data/repo/user/base/user_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
+import 'package:connectit_app/widgets/add_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -69,44 +70,9 @@ class _MyEditingDialogState extends State<StartupEditDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           if (!widget.edit)
-            Container(
-              height: 100,
-              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                border: Border.all(
-                  color: Theme.of(context).dividerColor,
-                ),
-              ),
-              child: InkWell(
-                onTap: () {
-                  _onImageTap();
-                },
-                child: _file != null
-                    ? Image.file(_file)
-                    : Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey,
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              "Tap to add cover",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-              ),
+            AddImage(
+              _file,
+              _onImageTap,
             ),
           SizedBox(
             height: 8,
@@ -208,7 +174,7 @@ class _MyEditingDialogState extends State<StartupEditDialog> {
             .child('startups/${Path.basename(_file.path)}');
         final uploadTask = storageReference.putFile(_file);
         await uploadTask.onComplete;
-        print('File Uploaded');
+        logger.d('File Uploaded');
         avatar = await storageReference.getDownloadURL();
       }
       if (!widget.edit) {
