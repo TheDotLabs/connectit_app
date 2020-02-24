@@ -20,3 +20,5 @@ flutter pub get && flutter pub pub run build_runner build --delete-conflicting-o
 flutter pub pub run build_runner build
 
 flutter clean && flutter build apk --target-platform android-arm
+
+flutter clean && flutter build appbundle
