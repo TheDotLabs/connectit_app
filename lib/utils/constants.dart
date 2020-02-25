@@ -12,9 +12,11 @@ class Constants {
 
   static double startupListHeight = 200;
 
-  static  const double headerSeparatorHeight=8;
+  static const double headerSeparatorHeight = 8;
 
-  static String somethingWrong="Some error occurred!";
+  static String somethingWrong = "Some error occurred!";
+
+  static String privacyPolicy = "https://connect-it.flycricket.io/privacy.html";
 
   Constants._();
 }

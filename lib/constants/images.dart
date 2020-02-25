@@ -4,6 +4,8 @@
 class Images {
   static String logo = '$_BASE_PATH/logo.svg';
 
+  static const String background = '$_BASE_PATH/background.png';
+
   Images._();
 
   static const String _BASE_PATH = 'assets/images';

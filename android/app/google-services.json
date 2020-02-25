@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "930138226279-pcn006sqfu166udjt3f9737tp4k284k2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectit.android",
+            "certificate_hash": "b9f5025287e4ad532fe4cb79ebcbe0ec4efde5f8"
+          }
+        },
+        {
           "client_id": "930138226279-hn0g08ik3fhu1iak25n87e3berq1r8q8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "930138226279-gau96tvq37peucouikqe7iei8anoqitq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "930138226279-4q53bldv13h2nc07pcqo5p9k1bhb0fe6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.connectit.ios"
+              }
             }
           ]
         }

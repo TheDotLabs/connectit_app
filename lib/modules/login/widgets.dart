@@ -16,6 +16,9 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
 //      decoration: BoxDecoration(boxShadow: [
 //        BoxShadow(
 //          color: Colors.black12,
@@ -27,12 +30,15 @@ class LoginButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         color: Colors.white,
         onPressed: onClick,
-        elevation: 1.0,
+        elevation: 2.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(36.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 16.0,
+          ),
           child: Row(
             children: <Widget>[
               SvgIcon(assetName: assetName),
@@ -42,7 +48,7 @@ class LoginButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.black87,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
               Spacer(),
