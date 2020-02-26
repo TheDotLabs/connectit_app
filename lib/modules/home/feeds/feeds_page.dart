@@ -429,6 +429,10 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
 
   void _onUpdate(BuildContext context, String text) async {
     try {
+      if (!checkIfNotEmpty(text)) {
+        ToastUtils.show("Post can't be empty!");
+        return;
+      }
       setState(() {
         _isLoading = true;
       });

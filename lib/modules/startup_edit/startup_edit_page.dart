@@ -112,6 +112,7 @@ class _MyEditingDialogState extends State<StartupEditPage> {
             Header(
               "NAME",
               marginBottom: 0,
+              required: true,
             ),
             TextField(
               controller: _nameController,
@@ -130,6 +131,7 @@ class _MyEditingDialogState extends State<StartupEditPage> {
             Header(
               "TAGLINE",
               marginBottom: 0,
+              required: true,
             ),
             TextField(
               controller: _taglineController,
@@ -147,6 +149,7 @@ class _MyEditingDialogState extends State<StartupEditPage> {
             Header(
               "DESCRIPTION",
               marginBottom: 0,
+              required: true,
             ),
             TextField(
               controller: _descController,
@@ -192,7 +195,7 @@ class _MyEditingDialogState extends State<StartupEditPage> {
                         _websiteController.text,
                       );
                     },
-                    text: widget.edit ? "UPDATE" : "CREATE",
+                    text: widget.edit ? "UPDATE" : "ADD STARTUP",
                   ),
                   MyDivider(),
                   CancelButton(
