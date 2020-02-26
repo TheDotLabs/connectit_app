@@ -237,7 +237,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
             maxLines: null,
             style: TextStyle(fontSize: 14),
             decoration: InputDecoration(hintText: "..."),
-            maxLength: 50,
+            maxLength: 70,
           ),
           Header(
             "DEGREE",
