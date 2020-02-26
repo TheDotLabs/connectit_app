@@ -393,6 +393,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           ),
           AddImage(_file, _onImageTap),
           TextField(
+            controller: _descController,
             maxLines: null,
             minLines: 2,
             decoration: InputDecoration(hintText: "..."),
