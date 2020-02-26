@@ -6,7 +6,6 @@ import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/utils/constants.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/header.dart';
-import 'package:connectit_app/widgets/startup_edit/startup_edit.dart';
 import 'package:flutter/material.dart';
 
 class StartupSection extends StatelessWidget {
@@ -68,22 +67,27 @@ class StartupSection extends StatelessWidget {
                   height: 40.0,
                   child: RaisedButton(
                     onPressed: () {
-                      showDialog(
+                      Navigator.pushNamed(
+                        context,
+                        Routes.startupEdit,
+                        arguments: [false, null],
+                      );
+                      /*  showDialog(
                         context: context,
                         barrierDismissible: false,
                         builder: (context) => SimpleDialog(
                           contentPadding: EdgeInsets.all(0),
                           children: <Widget>[
-                            StartupEditDialog(),
+                            StartupEditPage(),
                           ],
                         ),
-                      );
+                      );*/
                     },
                     color: Colors.white,
                     elevation: 0,
                     highlightElevation: 0,
                     child: Text(
-                      '+ POST YOUR STARTUP',
+                      '+ ADD YOUR STARTUP',
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,

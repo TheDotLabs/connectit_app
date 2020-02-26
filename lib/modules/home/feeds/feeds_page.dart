@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:path/path.dart' as Path;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -72,7 +73,7 @@ class _FeedPageState extends State<FeedPage> {
                           ),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             FutureBuilder<DocumentSnapshot>(
                                 future: _getUser(feed.author),
@@ -188,7 +189,107 @@ class _FeedPageState extends State<FeedPage> {
                                     imageUrl: feed.avatar,
                                   ),
                                 ),
-                              )
+                              ),
+                            if ((feed.author as DocumentReference).documentID !=
+                                injector<UserRepository>().getLoggedInUser().id)
+                              MyDivider(),
+                            if ((feed.author as DocumentReference).documentID !=
+                                injector<UserRepository>().getLoggedInUser().id)
+                              FutureBuilder<DocumentSnapshot>(
+                                future: _getUser(feed.author),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData &&
+                                      snapshot.data != null) {
+                                    final user =
+                                        User.fromJson(snapshot.data.data)
+                                            .copyWith(
+                                      id: snapshot.data.documentID,
+                                    );
+                                    return Container(
+                                      height: 48.0,
+                                      child: RaisedButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            Routes.chat,
+                                            arguments: [
+                                              injector<UserRepository>()
+                                                  .getLoggedInUser(),
+                                              user,
+                                            ],
+                                          );
+                                        },
+                                        color: Colors.white,
+                                        elevation: 0,
+                                        highlightElevation: 0,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Icon(
+                                              LineAwesomeIcons.comments,
+                                              color: Colors.blue,
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              'MESSAGE',
+                                              style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                },
+                              ),
+
+                            /*if (us
+                            er.id !=
+                                injector<UserRepository>().getLoggedInUser().id)
+                              Container(
+                                height: 48.0,
+                                child: RaisedButton(
+                                  onPressed: () {
+                                    */ /* injector<UserRepository>().logoutUser();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.login, (route) => false);*/ /*
+                                    Navigator.pushNamed(
+                                      context,
+                                      Routes.chat,
+                                      arguments: [
+                                        injector<UserRepository>().getLoggedInUser(),
+                                        widget.user,
+                                      ],
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  elevation: 0,
+                                  highlightElevation: 0,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Icon(
+                                        LineAwesomeIcons.comments,
+                                        color: Colors.blue,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        'MESSAGE',
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),*/
                           ],
                         ),
                       ),

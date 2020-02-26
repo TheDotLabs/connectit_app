@@ -260,7 +260,7 @@ class ChatBox extends StatelessWidget {
                       horizontal: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
+                      color: Colors.grey[50],
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Column(
@@ -305,7 +305,7 @@ class ChatBox extends StatelessWidget {
                       horizontal: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Colors.grey[100],
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Column(

@@ -6,6 +6,7 @@ import 'package:connectit_app/data/repo/user/base/user_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
+import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/add_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,11 @@ import '../header.dart';
 import '../my_divider.dart';
 import '../update_button.dart';
 
-class StartupEditDialog extends StatefulWidget {
+class StartupEditPage extends StatefulWidget {
   final bool edit;
   final Startup startup;
 
-  StartupEditDialog({
+  StartupEditPage({
     this.edit = false,
     this.startup,
   });
@@ -31,7 +32,7 @@ class StartupEditDialog extends StatefulWidget {
   _MyEditingDialogState createState() => _MyEditingDialogState();
 }
 
-class _MyEditingDialogState extends State<StartupEditDialog> {
+class _MyEditingDialogState extends State<StartupEditPage> {
   TextEditingController _nameController;
   TextEditingController _taglineController;
   TextEditingController _descController;
@@ -159,6 +160,17 @@ class _MyEditingDialogState extends State<StartupEditDialog> {
     String description,
   ) async {
     try {
+      if (!checkIfNotEmpty(name)) {
+        ToastUtils.show("Name can't be empty!");
+        return;
+      } else if (!checkIfNotEmpty(tagline)) {
+        ToastUtils.show("Tagline can't be empty!");
+        return;
+      } else if (!checkIfNotEmpty(description)) {
+        ToastUtils.show("Description can't be empty!");
+        return;
+      }
+
       setState(() {
         _isLoading = true;
       });

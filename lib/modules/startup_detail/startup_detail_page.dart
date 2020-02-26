@@ -11,13 +11,13 @@ import 'package:connectit_app/modules/startup_detail/widgets/facebook_section.da
 import 'package:connectit_app/modules/startup_detail/widgets/founders_section.dart';
 import 'package:connectit_app/modules/startup_detail/widgets/linkedin_section.dart';
 import 'package:connectit_app/modules/startup_detail/widgets/website_section.dart';
+import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/utils/constants.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/app_loader.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
-import 'package:connectit_app/widgets/startup_edit/startup_edit.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:connectit_app/widgets/stream_loading.dart';
 import 'package:connectit_app/widgets/verified_badge.dart';
@@ -37,6 +37,8 @@ class StartupDetailPage extends StatefulWidget {
 
 class _StartupDetailPageState extends State<StartupDetailPage> {
   bool _isLoading = false;
+
+  Startup startup;
 
   StreamTransformer<DocumentSnapshot, Startup> get _streamTransformer =>
       StreamTransformer.fromHandlers(
@@ -65,6 +67,7 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               final startup = snapshot.data;
+              this.startup = startup;
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -195,19 +198,28 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
                 height: 44.0,
                 child: RaisedButton(
                   onPressed: () {
-                    showDialog(
+                    if (startup != null)
+                      Navigator.pushNamed(
+                        context,
+                        Routes.startupEdit,
+                        arguments: [
+                          true,
+                          startup,
+                        ],
+                      );
+                    /*showDialog(
                       context: context,
                       barrierDismissible: false,
                       builder: (context) => SimpleDialog(
                         contentPadding: EdgeInsets.all(0),
                         children: <Widget>[
-                          StartupEditDialog(
+                          StartupEditPage(
                             edit: true,
                             startup: widget.startup,
                           ),
                         ],
                       ),
-                    );
+                    );*/
                   },
                   color: Colors.white,
                   elevation: 0,

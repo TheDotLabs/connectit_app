@@ -4,6 +4,7 @@ import 'package:connectit_app/modules/home/home_page.dart';
 import 'package:connectit_app/modules/login/index.dart';
 import 'package:connectit_app/modules/profile/visitor_profile.dart';
 import 'package:connectit_app/modules/startup_detail/startup_detail_page.dart';
+import 'package:connectit_app/modules/startup_edit/startup_edit_page.dart';
 import 'package:flutter/material.dart';
 
 import 'routes.dart';
@@ -33,6 +34,13 @@ class AppRoutes {
       case Routes.chatRoom:
         return MaterialPageRoute(
           builder: (_) => RoomPage(),
+        );
+      case Routes.startupEdit:
+        return MaterialPageRoute(
+          builder: (_) => StartupEditPage(
+            edit: (settings.arguments as List)[0],
+            startup: (settings.arguments as List)[1],
+          ),
         );
       /*case Routes.PROFILE:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
