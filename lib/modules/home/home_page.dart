@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               width: 8,
             ),
             Text(
-              "Connect IT- Demo",
+              "Connect IT",
             ),
           ],
         ),
