@@ -9,6 +9,7 @@ import 'package:connectit_app/utils/dialog_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/url_utils.dart';
 import 'package:connectit_app/widgets/svg_icon.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -94,7 +95,17 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: LoginButton(
                     label: 'Login with Google',
-                    onClick: () => _login(),
+                    onClick: () async {
+                      var connectivityResult =
+                          await (Connectivity().checkConnectivity());
+                      if (connectivityResult != ConnectivityResult.none) {
+                        _login();
+                      } else {
+                        ToastUtils.show(
+                          "Please check your internet connectivity!",
+                        );
+                      }
+                    },
                     assetName: Images.GOOGLE_LOGO,
                   ),
                 ),
