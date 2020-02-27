@@ -11,6 +11,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Connect IT"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
