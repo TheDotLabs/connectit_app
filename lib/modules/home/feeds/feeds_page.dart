@@ -187,6 +187,7 @@ class _FeedPageState extends State<FeedPage> {
                                   alignment: Alignment.center,
                                   child: CachedNetworkImage(
                                     imageUrl: feed.avatar,
+                                    fit: BoxFit.fitHeight,
                                   ),
                                 ),
                               ),
