@@ -147,8 +147,6 @@ class _HomePageState extends State<HomePage> {
           final count = docs.documents.length;
           if (mounted) {
             setState(() {
-              print("message: " + _messages.toString());
-              print("count: " + count.toString());
               _messages = _messages + count;
             });
           }
