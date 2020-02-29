@@ -72,226 +72,240 @@ class _FeedPageState extends State<FeedPage> {
                             color: Theme.of(context).dividerColor,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            FutureBuilder<DocumentSnapshot>(
-                                future: _getUser(feed.author),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData &&
-                                      snapshot.data != null) {
-                                    final user =
-                                        User.fromJson(snapshot.data.data)
-                                            .copyWith(
-                                      id: snapshot.data.documentID,
-                                    );
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          Routes.visitorProfile,
-                                          arguments: user,
-                                        );
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 8,
-                                        ),
-                                        child: Row(
-                                          children: <Widget>[
-                                            CircleAvatar(
-                                              backgroundImage:
-                                                  CachedNetworkImageProvider(
-                                                user.avatar,
+                        child: Card(
+                          elevation: 0,
+                          margin: EdgeInsets.all(0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              FutureBuilder<DocumentSnapshot>(
+                                  future: _getUser(feed.author),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.data != null) {
+                                      final user =
+                                          User.fromJson(snapshot.data.data)
+                                              .copyWith(
+                                        id: snapshot.data.documentID,
+                                      );
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            Routes.visitorProfile,
+                                            arguments: user,
+                                          );
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 8,
+                                          ),
+                                          child: Row(
+                                            children: <Widget>[
+                                              CircleAvatar(
+                                                backgroundImage:
+                                                    CachedNetworkImageProvider(
+                                                  user.avatar,
+                                                ),
+                                                radius: 18,
                                               ),
-                                              radius: 18,
-                                            ),
-                                            SizedBox(
-                                              width: 12,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        user.name,
-                                                        style: TextStyle(
-                                                          fontSize: 14,
+                                              SizedBox(
+                                                width: 12,
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          user.name,
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 4,
-                                                      ),
-                                                      if (user.isVerified)
-                                                        VerifiedBadge()
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    DateFormat(
-                                                            'dd MMM yy hh:mm a')
-                                                        .format(
-                                                      DateTime
-                                                          .fromMillisecondsSinceEpoch(
-                                                              feed.time),
+                                                        SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        if (user.isVerified)
+                                                          VerifiedBadge()
+                                                      ],
                                                     ),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline4
-                                                        .copyWith(fontSize: 12),
-                                                  )
-                                                ],
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                              ),
-                                            )
-                                          ],
+                                                    SizedBox(
+                                                      height: 2,
+                                                    ),
+                                                    Text(
+                                                      DateFormat(
+                                                              'dd MMM yy hh:mm a')
+                                                          .format(
+                                                        DateTime
+                                                            .fromMillisecondsSinceEpoch(
+                                                                feed.time),
+                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline4
+                                                          .copyWith(
+                                                              fontSize: 12),
+                                                    )
+                                                  ],
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  } else {
-                                    return ListTile(
-                                      title: Text("--"),
-                                      subtitle: Text("--"),
-                                    );
-                                  }
-                                }),
-                            MyDivider(),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 8,
+                                      );
+                                    } else {
+                                      return ListTile(
+                                        title: Text("--"),
+                                        subtitle: Text("--"),
+                                      );
+                                    }
+                                  }),
+                              MyDivider(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 8,
+                                ),
+                                child: Linkify(
+                                  text: feed.description ?? "--",
+                                  onOpen: (link) async {
+                                    if (await canLaunch(link.url)) {
+                                      await launch(link.url);
+                                    } else {
+                                      ToastUtils.show('Could not open link!');
+                                    }
+                                  },
+                                  linkStyle: TextStyle(color: Colors.blue),
+                                ),
                               ),
-                              child: Linkify(
-                                text: feed.description ?? "--",
-                                onOpen: (link) async {
-                                  if (await canLaunch(link.url)) {
-                                    await launch(link.url);
-                                  } else {
-                                    ToastUtils.show('Could not open link!');
-                                  }
-                                },
-                                linkStyle: TextStyle(color: Colors.blue),
-                              ),
-                            ),
-                            if (checkIfNotEmpty(feed.avatar))
-                              ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 220),
-                                child: Container(
-                                  alignment: Alignment.center,
+                              if (checkIfNotEmpty(feed.avatar))
+                                ConstrainedBox(
+                                  constraints: BoxConstraints(maxHeight: 220),
                                   child: CachedNetworkImage(
                                     imageUrl: feed.avatar,
                                     fit: BoxFit.fitHeight,
                                   ),
                                 ),
-                              ),
-                            if ((feed.author as DocumentReference).documentID !=
-                                injector<UserRepository>().getLoggedInUser().id)
-                              MyDivider(),
-                            if ((feed.author as DocumentReference).documentID !=
-                                injector<UserRepository>().getLoggedInUser().id)
-                              FutureBuilder<DocumentSnapshot>(
-                                future: _getUser(feed.author),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData &&
-                                      snapshot.data != null) {
-                                    final user =
-                                        User.fromJson(snapshot.data.data)
-                                            .copyWith(
-                                      id: snapshot.data.documentID,
-                                    );
-                                    return Container(
-                                      height: 48.0,
-                                      child: RaisedButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            Routes.chat,
-                                            arguments: [
-                                              injector<UserRepository>()
-                                                  .getLoggedInUser(),
-                                              user,
+                              if ((feed.author as DocumentReference)
+                                      .documentID !=
+                                  injector<UserRepository>()
+                                      .getLoggedInUser()
+                                      .id)
+                                MyDivider(),
+                              if ((feed.author as DocumentReference)
+                                      .documentID !=
+                                  injector<UserRepository>()
+                                      .getLoggedInUser()
+                                      .id)
+                                FutureBuilder<DocumentSnapshot>(
+                                  future: _getUser(feed.author),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.data != null) {
+                                      final user =
+                                          User.fromJson(snapshot.data.data)
+                                              .copyWith(
+                                        id: snapshot.data.documentID,
+                                      );
+                                      return Container(
+                                        height: 48.0,
+                                        child: RaisedButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              Routes.chat,
+                                              arguments: [
+                                                injector<UserRepository>()
+                                                    .getLoggedInUser(),
+                                                user,
+                                              ],
+                                            );
+                                          },
+                                          color: Colors.white,
+                                          elevation: 0,
+                                          highlightElevation: 0,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Icon(
+                                                LineAwesomeIcons.comments,
+                                                color: Colors.blue,
+                                              ),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(
+                                                'MESSAGE',
+                                                style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ],
-                                          );
-                                        },
-                                        color: Colors.white,
-                                        elevation: 0,
-                                        highlightElevation: 0,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Icon(
-                                              LineAwesomeIcons.comments,
-                                              color: Colors.blue,
-                                            ),
-                                            SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              'MESSAGE',
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  } else {
-                                    return Container();
-                                  }
-                                },
-                              ),
-
-                            /*if (us
-                            er.id !=
-                                injector<UserRepository>().getLoggedInUser().id)
-                              Container(
-                                height: 48.0,
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    */ /* injector<UserRepository>().logoutUser();
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.login, (route) => false);*/ /*
-                                    Navigator.pushNamed(
-                                      context,
-                                      Routes.chat,
-                                      arguments: [
-                                        injector<UserRepository>().getLoggedInUser(),
-                                        widget.user,
-                                      ],
-                                    );
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
                                   },
-                                  color: Colors.white,
-                                  elevation: 0,
-                                  highlightElevation: 0,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Icon(
-                                        LineAwesomeIcons.comments,
-                                        color: Colors.blue,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        'MESSAGE',
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
                                 ),
-                              ),*/
-                          ],
+
+                              /*if (us
+                              er.id !=
+                                  injector<UserRepository>().getLoggedInUser().id)
+                                Container(
+                                  height: 48.0,
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      */ /* injector<UserRepository>().logoutUser();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, Routes.login, (route) => false);*/ /*
+                                      Navigator.pushNamed(
+                                        context,
+                                        Routes.chat,
+                                        arguments: [
+                                          injector<UserRepository>().getLoggedInUser(),
+                                          widget.user,
+                                        ],
+                                      );
+                                    },
+                                    color: Colors.white,
+                                    elevation: 0,
+                                    highlightElevation: 0,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Icon(
+                                          LineAwesomeIcons.comments,
+                                          color: Colors.blue,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          'MESSAGE',
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),*/
+                            ],
+                          ),
                         ),
                       ),
                     ),
