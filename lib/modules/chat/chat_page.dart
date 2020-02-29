@@ -186,7 +186,7 @@ class _ChatPageState extends State<ChatPage> {
         .document(id.toString())
         .collection('messages')
         .add(chat.toJson())
-        .then((value) => print(value.path));
+        .then((value) {});
     final doc = await injector<Firestore>()
         .collection('chats')
         .document(id.toString())
