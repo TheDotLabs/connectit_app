@@ -68,7 +68,7 @@ class _TalentPageState extends State<TalentPage> {
                         ),
                       SizedBox(
                         height:
-                            (!injector<UserRepository>().isComplete()) ? 0 : 8,
+                            (!injector<UserRepository>().isComplete()) ? 8 : 0,
                       ),
                       ...snapshot.data.documents
                           .map((e) =>
