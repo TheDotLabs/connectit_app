@@ -3,6 +3,7 @@ import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/data/repo/user/base/user_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/modules/profile/widgets/edu_section.dart';
+import 'package:connectit_app/modules/profile/widgets/email_section.dart';
 import 'package:connectit_app/modules/profile/widgets/profile_header.dart';
 import 'package:connectit_app/modules/profile/widgets/startups_section.dart';
 import 'package:connectit_app/modules/profile/widgets/tag_section.dart';
@@ -55,6 +56,8 @@ class _VisitorProfilePageState extends State<VisitorProfilePage> {
                   MyDivider(),
                   if (checkIfNotEmpty(user.tagline)) TaglineSection(user),
                   if (checkIfNotEmpty(user.tagline)) MyDivider(),
+                  if (user.showEmail) EmailSection(user),
+                  if (user.showEmail) MyDivider(),
                   if (checkIfListIsNotEmpty(user.educations))
                     EducationSection(user),
                   if (checkIfListIsNotEmpty(user.educations)) MyDivider(),

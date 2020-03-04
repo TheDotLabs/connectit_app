@@ -16,6 +16,7 @@ abstract class User with _$User {
     @JsonKey(includeIfNull: false) List<Work> works,
     @JsonKey(includeIfNull: false) List startups,
     @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
+    @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

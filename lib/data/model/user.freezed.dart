@@ -29,6 +29,8 @@ mixin _$User {
   List<dynamic> get startups;
   @JsonKey(includeIfNull: false, defaultValue: false)
   bool get isVerified;
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  bool get showEmail;
 
   User copyWith(
       {String id,
@@ -40,7 +42,8 @@ mixin _$User {
       @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
-      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
+      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
+      @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail});
 
   Map<String, dynamic> toJson();
 }
@@ -57,7 +60,8 @@ class _$_User implements _User {
       @JsonKey(includeIfNull: false) this.educations,
       @JsonKey(includeIfNull: false) this.works,
       @JsonKey(includeIfNull: false) this.startups,
-      @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified});
+      @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified,
+      @JsonKey(includeIfNull: false, defaultValue: false) this.showEmail});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -89,10 +93,13 @@ class _$_User implements _User {
   @override
   @JsonKey(includeIfNull: false, defaultValue: false)
   final bool isVerified;
+  @override
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  final bool showEmail;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, works: $works, startups: $startups, isVerified: $isVerified)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, works: $works, startups: $startups, isVerified: $isVerified, showEmail: $showEmail)';
   }
 
   @override
@@ -123,7 +130,10 @@ class _$_User implements _User {
                     .equals(other.startups, startups)) &&
             (identical(other.isVerified, isVerified) ||
                 const DeepCollectionEquality()
-                    .equals(other.isVerified, isVerified)));
+                    .equals(other.isVerified, isVerified)) &&
+            (identical(other.showEmail, showEmail) ||
+                const DeepCollectionEquality()
+                    .equals(other.showEmail, showEmail)));
   }
 
   @override
@@ -138,7 +148,8 @@ class _$_User implements _User {
       educations.hashCode ^
       works.hashCode ^
       startups.hashCode ^
-      isVerified.hashCode;
+      isVerified.hashCode ^
+      showEmail.hashCode;
 
   @override
   _$_User copyWith({
@@ -152,6 +163,7 @@ class _$_User implements _User {
     Object works = freezed,
     Object startups = freezed,
     Object isVerified = freezed,
+    Object showEmail = freezed,
   }) {
     return _$_User(
       id: id == freezed ? this.id : id as String,
@@ -166,6 +178,7 @@ class _$_User implements _User {
       works: works == freezed ? this.works : works as List<Work>,
       startups: startups == freezed ? this.startups : startups as List<dynamic>,
       isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
+      showEmail: showEmail == freezed ? this.showEmail : showEmail as bool,
     );
   }
 
@@ -177,23 +190,18 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   factory _User(
-      {String id,
-      @JsonKey(includeIfNull: false)
-          String name,
-      String email,
-      @JsonKey(includeIfNull: false)
-          String avatar,
-      String provider,
-      @JsonKey(includeIfNull: false)
-          String tagline,
-      @JsonKey(includeIfNull: false)
-          List<Education> educations,
-      @JsonKey(includeIfNull: false)
-          List<Work> works,
-      @JsonKey(includeIfNull: false)
-          List<dynamic> startups,
-      @JsonKey(includeIfNull: false, defaultValue: false)
-          bool isVerified}) = _$_User;
+          {String id,
+          @JsonKey(includeIfNull: false) String name,
+          String email,
+          @JsonKey(includeIfNull: false) String avatar,
+          String provider,
+          @JsonKey(includeIfNull: false) String tagline,
+          @JsonKey(includeIfNull: false) List<Education> educations,
+          @JsonKey(includeIfNull: false) List<Work> works,
+          @JsonKey(includeIfNull: false) List<dynamic> startups,
+          @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
+          @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail}) =
+      _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -224,6 +232,9 @@ abstract class _User implements User {
   @override
   @JsonKey(includeIfNull: false, defaultValue: false)
   bool get isVerified;
+  @override
+  @JsonKey(includeIfNull: false, defaultValue: false)
+  bool get showEmail;
 
   @override
   _User copyWith(
@@ -236,7 +247,8 @@ abstract class _User implements User {
       @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
-      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified});
+      @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
+      @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail});
 }
 
 Education _$EducationFromJson(Map<String, dynamic> json) {

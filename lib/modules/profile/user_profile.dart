@@ -8,6 +8,7 @@ import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc.dart';
+import 'widgets/email_section.dart';
 import 'widgets/logout_button.dart';
 import 'widgets/work_section.dart';
 
@@ -37,6 +38,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 MyDivider(),
                 TaglineSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),
+                EmailSection(
                   user,
                   edit: true,
                 ),
