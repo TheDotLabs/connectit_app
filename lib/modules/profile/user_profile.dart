@@ -1,8 +1,11 @@
 import 'package:connectit_app/data/model/user.dart';
+import 'package:connectit_app/data/repo/user/base/user_repository.dart';
+import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/modules/profile/widgets/edu_section.dart';
 import 'package:connectit_app/modules/profile/widgets/profile_header.dart';
 import 'package:connectit_app/modules/profile/widgets/startups_section.dart';
 import 'package:connectit_app/modules/profile/widgets/tag_section.dart';
+import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
 import 'package:connectit_app/widgets/stream_error.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +35,70 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               physics: BouncingScrollPhysics(),
               children: <Widget>[
+                if (!injector<UserRepository>().isComplete())
+                  Card(
+                    elevation: 0,
+                    margin: EdgeInsets.only(left: 8, right: 8, top: 6),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.redAccent.withOpacity(0.7),
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Icon(
+                                Icons.info,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Flexible(
+                              flex: 3,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
+                                    child: Text(
+                                      "Please complete your profile!",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      if (!checkIfNotEmpty(user.tagline))
+                                        Text(
+                                          "- Add Tagline",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                      if (!checkIfListIsNotEmpty(
+                                          user.educations))
+                                        Text(
+                                          "- Add Education",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ProfileHeader(
                   user: user,
                   showEmail: true,

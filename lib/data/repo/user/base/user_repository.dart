@@ -11,4 +11,6 @@ abstract class UserRepository {
   String getFcmToken();
 
   void logoutUser() {}
+
+  bool isComplete() {}
 }

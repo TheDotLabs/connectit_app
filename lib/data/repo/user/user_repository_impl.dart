@@ -8,6 +8,7 @@ import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/data/repo/user/google_login_repository.dart';
 import 'package:connectit_app/di/injector.dart';
 import 'package:connectit_app/utils/log_utils.dart';
+import 'package:connectit_app/utils/top_level_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,6 +86,12 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Stream<User> getUserStream() {
     return _userSubject.stream;
+  }
+
+  @override
+  bool isComplete() {
+    return checkIfNotEmpty(getLoggedInUser().tagline) &&
+        checkIfListIsNotEmpty(getLoggedInUser().educations);
   }
 
   @override

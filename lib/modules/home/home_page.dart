@@ -53,35 +53,40 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: <Widget>[
-          Stack(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  LineAwesomeIcons.envelope,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.chatRoom);
-                },
-              ),
-              if (_messages > 0)
-                Positioned(
-                  right: 6,
-                  top: 8,
-                  child: Container(
-                    height: 18,
-                    width: 18,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.redAccent,
-                    ),
-                    child: Text(
-                      '${_messages.toString()}',
-                      style: TextStyle(fontSize: 12),
-                    ),
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, Routes.chatRoom);
+            },
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  height: 56,
+                  width: 56,
+                  child: Icon(
+                    LineAwesomeIcons.envelope,
                   ),
-                )
-            ],
+                ),
+                if (_messages > 0)
+                  Positioned(
+                    right: 8,
+                    top: 10,
+                    child: Container(
+                      height: 18,
+                      width: 18,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.redAccent,
+                      ),
+                      child: Text(
+                        '${_messages.toString()}',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  )
+              ],
+            ),
           )
         ],
       ),
