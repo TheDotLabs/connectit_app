@@ -119,6 +119,9 @@ class _TalentPageState extends State<TalentPage> {
                               ),
                             ),
                           ),
+                      SizedBox(
+                        height: 8,
+                      ),
                     ],
                   ),
                 ),
