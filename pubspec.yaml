@@ -47,6 +47,7 @@ dependencies:
   firebase_messaging: ^6.0.12
   validators: ^2.0.0+1
   connectivity: ^0.4.8+1
+  google_nav_bar: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,7 @@ import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/widgets/svg_icon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      /* bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
@@ -118,6 +119,41 @@ class _HomePageState extends State<HomePage> {
             title: Text('Profile'),
           )
         ],
+      ),*/
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+          child: GNav(
+            gap: 8,
+            color: Colors.grey[600],
+            activeColor: Colors.white,
+            iconSize: 22,
+            textStyle: TextStyle(fontSize: 14, color: Colors.white),
+            tabBackgroundColor: Colors.blue[300],
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            duration: Duration(milliseconds: 500),
+            tabs: [
+              GButton(
+                icon: LineAwesomeIcons.home,
+                text: 'Startups',
+              ),
+              GButton(
+                icon: LineAwesomeIcons.copy,
+                text: 'Feeds',
+              ),
+              GButton(
+                icon: LineAwesomeIcons.users,
+                text: 'Talents',
+              ),
+              GButton(
+                icon: LineAwesomeIcons.user,
+                text: 'Profile',
+              )
+            ],
+            selectedIndex: _currentIndex,
+            onTabChange: _onTabTapped,
+          ),
+        ),
       ),
     );
   }
