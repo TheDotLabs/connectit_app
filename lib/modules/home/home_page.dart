@@ -5,10 +5,10 @@ import 'package:connectit_app/modules/home/startup/startup_page.dart';
 import 'package:connectit_app/modules/home/talents/talent_page.dart';
 import 'package:connectit_app/modules/profile/index.dart';
 import 'package:connectit_app/routes/routes.dart';
+import 'package:connectit_app/widgets/bottom_bar/google_nav_bar.dart';
 import 'package:connectit_app/widgets/svg_icon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             iconSize: 22,
             textStyle: TextStyle(fontSize: 14, color: Colors.white),
             tabBackgroundColor: Colors.blue[300],
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             duration: Duration(milliseconds: 500),
             tabs: [
               GButton(
