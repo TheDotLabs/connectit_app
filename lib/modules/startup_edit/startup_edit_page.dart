@@ -17,7 +17,7 @@ import 'package:connectit_app/widgets/update_button.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:validators/validators.dart';
@@ -72,10 +72,6 @@ class _MyEditingDialogState extends State<StartupEditPage> {
         title: Text(
           widget.edit ? "Edit Details" : "Add Your Startup",
         ),
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
-        brightness: Brightness.light,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(

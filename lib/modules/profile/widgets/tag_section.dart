@@ -127,7 +127,12 @@ class _MyEditingDialogState extends State<MyEditingDialog> {
                   Navigator.pop(context);
                 }),
                 UpdateButton(() {
-                  _onUpdate(_controller.text, context);
+                  if (checkIfNotEmpty(_controller.text) &&
+                      _controller.text.length < 3) {
+                    ToastUtils.show("Please provide min 3 characters!");
+                    return;
+                  }
+                  _onUpdate(_controller.text?.trim(), context);
                 }),
               ],
             ),

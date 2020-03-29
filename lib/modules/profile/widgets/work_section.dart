@@ -44,10 +44,11 @@ class WorkSection extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             work.company ?? "--",
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2
-                                .copyWith(fontSize: 16),
+                            style:
+                                Theme.of(context).textTheme.subtitle2.copyWith(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                           ),
                           SizedBox(
                             height: 2,
@@ -133,7 +134,7 @@ class WorkSection extends StatelessWidget {
                 onPressed: () {
                   _onEdit(context, Work());
                 },
-                color: Colors.white,
+                color: Colors.transparent,
                 elevation: 0,
                 highlightElevation: 0,
                 child: Text(
@@ -163,23 +164,50 @@ class WorkSection extends StatelessWidget {
     );
   }
 
-  void _onRemove(BuildContext context, Work work) {
-    try {
-      injector<Firestore>().collection('users').document(user.id).updateData({
-        "works": FieldValue.arrayRemove([work.toJson()])
-      });
+  Future<void> _onRemove(BuildContext context, Work work) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Remove work"),
+          content: Text("Are you sure you want to remove this work?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("Remove"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                try {
+                  injector<Firestore>()
+                      .collection('users')
+                      .document(user.id)
+                      .updateData({
+                    "works": FieldValue.arrayRemove([work.toJson()])
+                  });
 
-      ToastUtils.show("Work updated!");
-    } catch (e, s) {
-      logger.e(e, s);
-      ToastUtils.showSomethingWrong();
-    }
+                  ToastUtils.show("Work removed!");
+                } catch (e, s) {
+                  logger.e(e, s);
+                  ToastUtils.showSomethingWrong();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
 class _MyEditingDialog extends StatefulWidget {
   final User user;
   final Work education;
+
   _MyEditingDialog(this.user, this.education);
 
   @override
@@ -199,12 +227,13 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
   int currentYear = DateTime.now().year;
 
   bool _currentyWork;
+
   @override
   void initState() {
     super.initState();
     _currentyWork = widget.education.currentlyWorkHere ?? false;
-    _startYear = widget.education.startYear;
-    _endYear = widget.education.endYear;
+    _startYear = widget.education.startYear ?? currentYear;
+    _endYear = widget.education.endYear ?? currentYear;
 
     _companyController = TextEditingController.fromValue(
       TextEditingValue(text: widget.education.company ?? ""),
@@ -233,6 +262,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "COMPANY",
             marginBottom: 0,
+            required: true,
           ),
           TextField(
             controller: _companyController,
@@ -255,6 +285,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "START YEAR",
             marginBottom: 0,
+            required: true,
           ),
           DropdownButton<int>(
             isExpanded: true,
@@ -282,6 +313,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
             Header(
               "END YEAR",
               marginBottom: 0,
+              required: true,
             ),
           if (!_currentyWork)
             DropdownButton<int>(
@@ -317,6 +349,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "DESCRIPTION",
             marginBottom: 0,
+            required: true,
           ),
           TextField(
             controller: _descController,
@@ -347,6 +380,24 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
                     role: _roleController.text?.trim(),
                     currentlyWorkHere: _currentyWork,
                   );
+
+                  if (!checkIfNotEmpty(newEducation.company)) {
+                    ToastUtils.show("Please enter company name!");
+                    return;
+                  }
+                  if (!checkIfNotEmpty(newEducation.description)) {
+                    ToastUtils.show("Please provide role description!");
+                    return;
+                  }
+                  if (newEducation.startYear == null) {
+                    ToastUtils.show("Please provide start year!");
+                    return;
+                  }
+                  if (newEducation.endYear == null && !_currentyWork) {
+                    ToastUtils.show("Please provide end year!");
+                    return;
+                  }
+
                   _onUpdate(widget.education, newEducation, context);
                 }),
               ],

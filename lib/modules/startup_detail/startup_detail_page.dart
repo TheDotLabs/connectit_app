@@ -56,10 +56,6 @@ class _StartupDetailPageState extends State<StartupDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Details"),
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
-        brightness: Brightness.light,
       ),
       body: StreamBuilder<Startup>(
           stream: _getStream(),

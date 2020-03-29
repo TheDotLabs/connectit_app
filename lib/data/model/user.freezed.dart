@@ -27,6 +27,8 @@ mixin _$User {
   List<Work> get works;
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
+  @JsonKey(includeIfNull: false)
+  List<String> get skills;
   @JsonKey(includeIfNull: false, defaultValue: false)
   bool get isVerified;
   @JsonKey(includeIfNull: false, defaultValue: false)
@@ -42,6 +44,7 @@ mixin _$User {
       @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
+      @JsonKey(includeIfNull: false) List<String> skills,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
       @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail});
 
@@ -60,6 +63,7 @@ class _$_User implements _User {
       @JsonKey(includeIfNull: false) this.educations,
       @JsonKey(includeIfNull: false) this.works,
       @JsonKey(includeIfNull: false) this.startups,
+      @JsonKey(includeIfNull: false) this.skills,
       @JsonKey(includeIfNull: false, defaultValue: false) this.isVerified,
       @JsonKey(includeIfNull: false, defaultValue: false) this.showEmail});
 
@@ -91,6 +95,9 @@ class _$_User implements _User {
   @JsonKey(includeIfNull: false)
   final List<dynamic> startups;
   @override
+  @JsonKey(includeIfNull: false)
+  final List<String> skills;
+  @override
   @JsonKey(includeIfNull: false, defaultValue: false)
   final bool isVerified;
   @override
@@ -99,7 +106,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, works: $works, startups: $startups, isVerified: $isVerified, showEmail: $showEmail)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, provider: $provider, tagline: $tagline, educations: $educations, works: $works, startups: $startups, skills: $skills, isVerified: $isVerified, showEmail: $showEmail)';
   }
 
   @override
@@ -128,6 +135,8 @@ class _$_User implements _User {
             (identical(other.startups, startups) ||
                 const DeepCollectionEquality()
                     .equals(other.startups, startups)) &&
+            (identical(other.skills, skills) ||
+                const DeepCollectionEquality().equals(other.skills, skills)) &&
             (identical(other.isVerified, isVerified) ||
                 const DeepCollectionEquality()
                     .equals(other.isVerified, isVerified)) &&
@@ -148,6 +157,7 @@ class _$_User implements _User {
       educations.hashCode ^
       works.hashCode ^
       startups.hashCode ^
+      skills.hashCode ^
       isVerified.hashCode ^
       showEmail.hashCode;
 
@@ -162,6 +172,7 @@ class _$_User implements _User {
     Object educations = freezed,
     Object works = freezed,
     Object startups = freezed,
+    Object skills = freezed,
     Object isVerified = freezed,
     Object showEmail = freezed,
   }) {
@@ -177,6 +188,7 @@ class _$_User implements _User {
           : educations as List<Education>,
       works: works == freezed ? this.works : works as List<Work>,
       startups: startups == freezed ? this.startups : startups as List<dynamic>,
+      skills: skills == freezed ? this.skills : skills as List<String>,
       isVerified: isVerified == freezed ? this.isVerified : isVerified as bool,
       showEmail: showEmail == freezed ? this.showEmail : showEmail as bool,
     );
@@ -199,6 +211,7 @@ abstract class _User implements User {
           @JsonKey(includeIfNull: false) List<Education> educations,
           @JsonKey(includeIfNull: false) List<Work> works,
           @JsonKey(includeIfNull: false) List<dynamic> startups,
+          @JsonKey(includeIfNull: false) List<String> skills,
           @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
           @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail}) =
       _$_User;
@@ -230,6 +243,9 @@ abstract class _User implements User {
   @JsonKey(includeIfNull: false)
   List<dynamic> get startups;
   @override
+  @JsonKey(includeIfNull: false)
+  List<String> get skills;
+  @override
   @JsonKey(includeIfNull: false, defaultValue: false)
   bool get isVerified;
   @override
@@ -247,6 +263,7 @@ abstract class _User implements User {
       @JsonKey(includeIfNull: false) List<Education> educations,
       @JsonKey(includeIfNull: false) List<Work> works,
       @JsonKey(includeIfNull: false) List<dynamic> startups,
+      @JsonKey(includeIfNull: false) List<String> skills,
       @JsonKey(includeIfNull: false, defaultValue: false) bool isVerified,
       @JsonKey(includeIfNull: false, defaultValue: false) bool showEmail});
 }

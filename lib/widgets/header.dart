@@ -21,14 +21,14 @@ class Header extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.overline.copyWith(
-                  fontSize: 13,
+                  fontSize: 12,
                 ),
           ),
           if (required)
             Text(
               " *",
               style: Theme.of(context).textTheme.overline.copyWith(
-                    fontSize: 13,
+                    fontSize: 12,
                     color: Colors.redAccent,
                     fontWeight: FontWeight.bold,
                   ),

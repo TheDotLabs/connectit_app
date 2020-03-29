@@ -36,6 +36,8 @@ _$_User _$_$_UserFromJson(Map json) {
                     )))
               ?.toList()),
       startups: $checkedConvert(json, 'startups', (v) => v as List),
+      skills: $checkedConvert(json, 'skills',
+          (v) => (v as List)?.map((e) => e as String)?.toList()),
       isVerified:
           $checkedConvert(json, 'isVerified', (v) => v as bool) ?? false,
       showEmail: $checkedConvert(json, 'showEmail', (v) => v as bool) ?? false,
@@ -64,6 +66,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) {
       'educations', instance.educations?.map((e) => e?.toJson())?.toList());
   writeNotNull('works', instance.works?.map((e) => e?.toJson())?.toList());
   writeNotNull('startups', instance.startups);
+  writeNotNull('skills', instance.skills);
   writeNotNull('isVerified', instance.isVerified);
   writeNotNull('showEmail', instance.showEmail);
   return val;

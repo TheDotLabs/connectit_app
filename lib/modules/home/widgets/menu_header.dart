@@ -9,7 +9,7 @@ class MenuHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: 12,
+        vertical: 6,
         horizontal: 16,
       ),
       child: Row(

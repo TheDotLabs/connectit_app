@@ -3,6 +3,7 @@ import 'package:connectit_app/modules/chat/index.dart';
 import 'package:connectit_app/modules/home/home_page.dart';
 import 'package:connectit_app/modules/login/index.dart';
 import 'package:connectit_app/modules/profile/visitor_profile.dart';
+import 'package:connectit_app/modules/skills_edit/skills_edit_page.dart';
 import 'package:connectit_app/modules/startup_detail/startup_detail_page.dart';
 import 'package:connectit_app/modules/startup_edit/startup_edit_page.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,10 @@ class AppRoutes {
             edit: (settings.arguments as List)[0],
             startup: (settings.arguments as List)[1],
           ),
+        );
+      case Routes.skillsEdit:
+        return MaterialPageRoute(
+          builder: (_) => SkillsEditPage(),
         );
       /*case Routes.PROFILE:
         return MaterialPageRoute(builder: (_) => ProfileScreen());

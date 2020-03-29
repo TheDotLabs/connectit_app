@@ -16,17 +16,17 @@ class _StartupPageState extends State<StartupPage> {
     return Container(
       child: ListView(children: [
         SizedBox(
-          height: 8,
+          height: 6,
         ),
         MenuHeader("TRENDING STARTUPS"),
         TrendingStartupList(),
         SizedBox(
-          height: 4,
+          height: 2,
         ),
         MenuHeader("NEW STARTUPS"),
         NewStartupList(),
         SizedBox(
-          height: 4,
+          height: 2,
         ),
         MenuHeader("UPCOMING STARTUPS"),
         UpcomingStartupList(),

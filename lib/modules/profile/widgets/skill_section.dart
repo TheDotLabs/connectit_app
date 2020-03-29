@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectit_app/data/model/user.dart';
 import 'package:connectit_app/di/injector.dart';
+import 'package:connectit_app/routes/routes.dart';
 import 'package:connectit_app/utils/log_utils.dart';
 import 'package:connectit_app/utils/toast_utils.dart';
 import 'package:connectit_app/utils/top_level_utils.dart';
@@ -10,13 +11,12 @@ import 'package:connectit_app/widgets/header.dart';
 import 'package:connectit_app/widgets/my_divider.dart';
 import 'package:connectit_app/widgets/update_button.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class EducationSection extends StatelessWidget {
+class SkillSection extends StatelessWidget {
   final User user;
   final bool edit;
 
-  EducationSection(
+  SkillSection(
     this.user, {
     this.edit = false,
   });
@@ -28,106 +28,18 @@ class EducationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Header("EDUCATION"),
-          if (checkIfListIsNotEmpty(user.educations))
-            for (final education in user.educations)
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: 12,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            education.college ?? "--",
-                            style:
-                                Theme.of(context).textTheme.subtitle2.copyWith(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          if (education.startYear != null ||
-                              education.endYear != null)
-                            Text(
-                              "(${education.startYear ?? ''} - ${education.endYear ?? ''})",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(
-                                    fontSize: 14,
-                                  ),
-                            ),
-                          if (checkIfNotEmpty(education.description))
-                            Container(
-                              margin: EdgeInsets.only(top: 4),
-                              child: Text(
-                                education.description,
-                                style: Theme.of(context).textTheme.bodyText2,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    if (edit)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 32,
-                            child: IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.edit,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                _onEdit(context, education);
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 32,
-                            child: IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.minus_circle,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                _onRemove(context, education);
-                              },
-                            ),
-                          ),
-                        ],
-                      )
-                  ],
-                ),
-              )
-
-          // Text(tagline),
-          else if (edit)
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 0.0),
-                    child: Text(
-                      "----Add Education----",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(fontSize: 14),
-                    ),
+          Header("SKILLS"),
+          if (checkIfListIsNotEmpty(user.skills))
+            for (final skill in user.skills)
+              if (checkIfNotEmpty(skill))
+                Container(
+                  margin: EdgeInsets.only(top: 4),
+                  child: Text(
+                    skill ?? "-",
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
-              ],
-            ),
+          // Text(tagline),
           if (edit)
             Container(
               height: 40.0,
@@ -139,7 +51,7 @@ class EducationSection extends StatelessWidget {
                 elevation: 0,
                 highlightElevation: 0,
                 child: Text(
-                  '+ ADD',
+                  '+ ADD SKILLS',
                   style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.normal,
@@ -153,55 +65,20 @@ class EducationSection extends StatelessWidget {
   }
 
   void _onEdit(BuildContext context, Education education) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => SimpleDialog(
-        contentPadding: EdgeInsets.all(0),
-        children: <Widget>[
-          _MyEditingDialog(user, education),
-        ],
-      ),
-    );
+    Navigator.pushNamed(context, Routes.skillsEdit);
   }
 
-  Future<void> _onRemove(BuildContext context, Education education) async {
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Remove education"),
-          content: Text("Are you sure you want to remove this education?"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text("Remove"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                try {
-                  injector<Firestore>()
-                      .collection('users')
-                      .document(user.id)
-                      .updateData({
-                    "educations": FieldValue.arrayRemove([education.toJson()])
-                  });
+  void _onRemove(BuildContext context, Education education) {
+    try {
+      injector<Firestore>().collection('users').document(user.id).updateData({
+        "educations": FieldValue.arrayRemove([education.toJson()])
+      });
 
-                  ToastUtils.show("Education removed!");
-                } catch (e, s) {
-                  logger.e(e, s);
-                  ToastUtils.showSomethingWrong();
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
+      ToastUtils.show("Education updated!");
+    } catch (e, s) {
+      logger.e(e, s);
+      ToastUtils.showSomethingWrong();
+    }
   }
 }
 
@@ -230,8 +107,8 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
   @override
   void initState() {
     super.initState();
-    _startYear = widget.education.startYear ?? currentYear;
-    _endYear = widget.education.endYear ?? currentYear;
+    _startYear = widget.education.startYear;
+    _endYear = widget.education.endYear;
 
     _collegeController = TextEditingController.fromValue(
       TextEditingValue(text: widget.education.college ?? ""),
@@ -260,7 +137,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "COLLEGE",
             marginBottom: 0,
-            required: true,
           ),
           TextField(
             controller: _collegeController,
@@ -272,7 +148,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "DEGREE",
             marginBottom: 0,
-            required: true,
           ),
           TextField(
             controller: _degreeController,
@@ -284,7 +159,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "START YEAR",
             marginBottom: 0,
-            required: true,
           ),
           DropdownButton<int>(
             isExpanded: true,
@@ -310,7 +184,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
           Header(
             "END YEAR",
             marginBottom: 0,
-            required: true,
           ),
           DropdownButton<int>(
             isExpanded: true,
@@ -365,28 +238,6 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
                     endYear: _endYear,
                     degree: _degreeController.text?.trim(),
                   );
-                  if (!checkIfNotEmpty(newEducation.college)) {
-                    ToastUtils.show("Please enter college name!");
-                    return;
-                  }
-                  if (!checkIfNotEmpty(newEducation.degree)) {
-                    ToastUtils.show("Please enter degree!");
-                    return;
-                  }
-                  if (newEducation.startYear == null) {
-                    ToastUtils.show("Please provide start year!");
-                    return;
-                  }
-                  if (newEducation.endYear == null) {
-                    ToastUtils.show("Please provide end year!");
-                    return;
-                  }
-
-                  if (newEducation.startYear > newEducation.endYear) {
-                    ToastUtils.show("Start year cannot be after end year!");
-                    return;
-                  }
-
                   _onUpdate(widget.education, newEducation, context);
                 }),
               ],

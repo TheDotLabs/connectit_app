@@ -36,9 +36,6 @@ class _VisitorProfilePageState extends State<VisitorProfilePage> {
         centerTitle: true,
         brightness: Brightness.light,
         title: Text("Profile"),
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: _bloc.fetchVisitorInfo(widget.user.id),

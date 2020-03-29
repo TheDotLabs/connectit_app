@@ -77,10 +77,6 @@ class _ChatPageState extends State<ChatPage> {
             Text("${widget.receiver.name}"),
           ],
         ),
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
-        brightness: Brightness.light,
       ),
       body: StreamBuilder<List<Chat>>(
           stream: _getStream(),
@@ -260,7 +256,10 @@ class ChatBox extends StatelessWidget {
                       horizontal: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[50],
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.light
+                          ? Colors.grey[200]
+                          : Colors.white.withOpacity(0.1),
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Column(
@@ -305,7 +304,10 @@ class ChatBox extends StatelessWidget {
                       horizontal: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.light
+                          ? Colors.grey[100]
+                          : Colors.white.withOpacity(0.1),
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Column(

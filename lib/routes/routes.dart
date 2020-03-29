@@ -9,6 +9,7 @@ class Routes {
   static const String cart = '/cart';
   static const String startupDetails = "/startupDetails";
   static const String startupEdit = "/startupEdit";
+  static const String skillsEdit = "/skillsEdit";
   static const String visitorProfile = 'visitorProfile';
   static const String chat = 'chat';
   static const String chatRoom = 'chatRoom';

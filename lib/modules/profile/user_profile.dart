@@ -129,6 +129,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   edit: true,
                 ),
                 MyDivider(),
+                /* SkillSection(
+                  user,
+                  edit: true,
+                ),
+                MyDivider(),*/
                 LogoutButton(),
                 MyDivider(),
               ],

@@ -44,10 +44,6 @@ class _RoomPageState extends State<RoomPage> {
       appBar: AppBar(
         titleSpacing: 4,
         title: Text("Inbox"),
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
-        brightness: Brightness.light,
       ),
       body: StreamBuilder<List<Room>>(
           stream: _getStream(),

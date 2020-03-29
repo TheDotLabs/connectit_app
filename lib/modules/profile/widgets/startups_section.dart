@@ -83,7 +83,7 @@ class StartupSection extends StatelessWidget {
                         ),
                       );*/
                     },
-                    color: Colors.white,
+                    color: Colors.transparent,
                     elevation: 0,
                     highlightElevation: 0,
                     child: Text(

@@ -1,6 +1,6 @@
 import 'package:connectit_app/constants/images.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 class StartChat extends StatelessWidget {
   @override

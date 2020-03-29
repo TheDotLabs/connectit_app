@@ -25,7 +25,7 @@ class StartupCard extends StatelessWidget {
           child: Card(
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
               side: BorderSide(color: Theme.of(context).dividerColor),
             ),
             elevation: 0,
@@ -59,6 +59,7 @@ class StartupCard extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.subtitle1.copyWith(
                                       fontWeight: FontWeight.w600,
+                                      fontSize: 14,
                                       letterSpacing: 1.05,
                                     ),
                           ),

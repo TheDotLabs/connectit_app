@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'config/fonts.dart';
 import 'data/local/prefs/prefs_helper.dart';
 import 'di/injector.dart';
 
@@ -25,6 +24,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     final _defaultHome = prefsHelper.isLogin ? HomePage() : LoginScreen();
 
     return BotToastInit(
@@ -34,11 +35,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.light,
           primarySwatch: Colors.blue,
-          fontFamily: Fonts.DEFAULT_FONT,
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.grey[50],
           iconTheme: IconThemeData(
             color: Colors.black87,
           ),
+          textTheme: GoogleFonts.muliTextTheme(textTheme),
           appBarTheme: AppBarTheme(
             brightness: Brightness.light,
             color: Colors.white,
@@ -49,6 +50,24 @@ class MyApp extends StatelessWidget {
             textTheme: TextTheme(
               title: GoogleFonts.nunito(
                 color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+          iconTheme: IconThemeData(),
+          textTheme: GoogleFonts.muliTextTheme(
+            ThemeData(brightness: Brightness.dark).textTheme,
+          ),
+          appBarTheme: AppBarTheme(
+            brightness: Brightness.dark,
+            elevation: 1,
+            textTheme: TextTheme(
+              title: GoogleFonts.nunito(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),

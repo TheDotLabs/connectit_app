@@ -56,17 +56,18 @@ class _FeedPageState extends State<FeedPage> {
             children: <Widget>[
               Expanded(
                 child: ListView(
+                  physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(vertical: 6),
                   children: <Widget>[
                     ...snapshot.data.map(
                       (feed) => Container(
                         margin: EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 8,
+                          vertical: 6,
+                          horizontal: 9,
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(4),
+                            Radius.circular(8),
                           ),
                           border: Border.all(
                             color: Theme.of(context).dividerColor,
@@ -77,7 +78,7 @@ class _FeedPageState extends State<FeedPage> {
                           margin: EdgeInsets.all(0),
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(4))),
+                                  BorderRadius.all(Radius.circular(8))),
                           clipBehavior: Clip.antiAlias,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -129,6 +130,8 @@ class _FeedPageState extends State<FeedPage> {
                                                           user.name,
                                                           style: TextStyle(
                                                             fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -175,10 +178,10 @@ class _FeedPageState extends State<FeedPage> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 12.0,
-                                  vertical: 8,
+                                  vertical: 10,
                                 ),
                                 child: Linkify(
-                                  text: feed.description ?? "--",
+                                  text: feed.description?.trim() ?? "--",
                                   onOpen: (link) async {
                                     if (await canLaunch(link.url)) {
                                       await launch(link.url);
@@ -334,7 +337,9 @@ class _FeedPageState extends State<FeedPage> {
                   child: Text(
                     '+ CREATE POST',
                     style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w500),
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               )
@@ -470,7 +475,7 @@ class _MyEditingDialogState extends State<_MyEditingDialog> {
         'author': _userRef,
         'hidden': false,
         'time': DateTime.now().millisecondsSinceEpoch,
-        'description': text,
+        'description': text?.trim(),
         'avatar': avatar,
       });
       ToastUtils.show("Post created!");

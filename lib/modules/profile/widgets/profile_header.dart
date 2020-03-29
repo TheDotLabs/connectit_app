@@ -49,7 +49,10 @@ class ProfileHeader extends StatelessWidget {
                 if (showEmail)
                   Text(
                     user.email,
-                    style: TextStyle(color: Colors.black54),
+                    style: Theme.of(context)
+                        .textTheme
+                        .display1
+                        .copyWith(fontSize: 12),
                   ),
               ],
             )

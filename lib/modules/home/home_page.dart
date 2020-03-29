@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SvgIcon(
               assetName: Images.logo,
@@ -48,8 +49,25 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               width: 8,
             ),
-            Text(
-              "Connect IT",
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  "Connect IT",
+                  style: TextStyle(height: 1),
+                ),
+                Text(
+                  "India's Startup Platform",
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontSize: 11),
+                ),
+              ],
             ),
           ],
         ),
@@ -125,7 +143,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
           child: GNav(
             gap: 8,
-            color: Colors.grey[600],
+            color: Colors.grey[500],
             activeColor: Colors.white,
             iconSize: 22,
             textStyle: TextStyle(fontSize: 14, color: Colors.white),

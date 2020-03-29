@@ -10,7 +10,7 @@ class Constants {
 
   static var isUpcoming = "isUpcoming";
 
-  static double startupListHeight = 200;
+  static double startupListHeight = 180;
 
   static const double headerSeparatorHeight = 8;
 
