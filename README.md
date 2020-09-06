@@ -77,7 +77,7 @@ You need to create a firebase project with Google signin enabled. Then download 
 
 <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/dual poster.png" width="auto" alt="connectit">
 
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/new poster 18apr.png" width="auto" alt="connectit">
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/new poster 18 apr.png" width="auto" alt="connectit">
 
 <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/covid.png" width="auto" alt="connectit">
 
