@@ -3,6 +3,13 @@
 A startup platform where people can view the whole new startups which are at idea stage or they have just landed.
 Developed by Ayush P Gupta(Founder) and Radhey Shyam, the two graduates from IIT Roorkee.
 
+## Flutter📱 + Firebase🔥
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/ic_launcher.png" alt="connectit">
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/feature_graphic.png" height="100" alt="connectit">
+
+
 ## PROBLEM
 
 Small startups which are at idea level or just startup are not showcased anywhere, mainly
@@ -20,11 +27,13 @@ like having team of 2-4 people. By focusing on this segment we can have a galler
 new startups so that people are enthusiastic of knowing startups or those who are willing to join
 others can benefit out the same.
 There are three broad sections in our app:
+
 1. Startup showcase page
 2. Feeds section
 3. Talent search page
 
 ## How do you differentiate yourself from the competition?
+
 By focusing on only small startups which are at idea level, or just started we create a line of
 separation from our competitors
 
@@ -36,7 +45,7 @@ early stage startups
 
 ## Further Reading
 
-### Playstore 
+### Playstore
 
 https://play.google.com/store/apps/details?id=com.connectit.android
 
@@ -50,21 +59,27 @@ https://medium.com/@ayushpguptaapg/connect-it-indias-startup-community-9c9fa6461
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You need to create a firebase project with Google signin enabled. Then download and copy google-services.json at android/app dir
 
-A few resources to get you started if this is your first Flutter project:
+## Extra(s)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+`flutter pub get && flutter pub pub run build_runner build --delete-conflicting-outputs`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+`flutter pub pub run build_runner build`
 
-flutter pub get && flutter pub pub run build_runner build --delete-conflicting-outputs
+`flutter clean && flutter build apk --target-platform android-arm`
 
-flutter pub pub run build_runner build
+`flutter clean && flutter build appbundle`
 
-flutter clean && flutter build apk --target-platform android-arm
+## Screenshots and Posters
 
-flutter clean && flutter build appbundle
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 1.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 2.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 3.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 4.png" height="400" alt="connectit">
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/dual poster.png" width="auto" alt="connectit">
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/new poster 18apr.png" width="auto" alt="connectit">
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/covid.png" width="auto" alt="connectit">
+
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/poster001.png" width="auto" alt="connectit">
+
