@@ -7,7 +7,7 @@ Developed by Ayush P Gupta(Founder) and Radhey Shyam, the two graduates from IIT
 
 <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/ic_launcher.png" alt="connectit">
 
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/feature_graphic.png" height="100" alt="connectit">
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/feature_graphic.png" height="200" alt="connectit">
 
 
 ## PROBLEM
@@ -75,11 +75,5 @@ You need to create a firebase project with Google signin enabled. Then download 
 
 <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 1.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 2.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 3.png" height="400" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/SCREENSHOT 4.png" height="400" alt="connectit">
 
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/dual poster.png" width="auto" alt="connectit">
-
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/new poster 18 apr.png" width="auto" alt="connectit">
-
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/covid.png" width="auto" alt="connectit">
-
-<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/poster001.png" width="auto" alt="connectit">
+<img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/dual poster.png" height="300" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/new poster 18 apr.png" height="300" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/covid.png" height="300" alt="connectit"> <img src="https://raw.githubusercontent.com/apgapg/connectit_app/master/res/poster001.png" height="300" alt="connectit">
 
